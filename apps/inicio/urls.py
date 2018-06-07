@@ -8,9 +8,8 @@ Class-based views
   
 """
 from django.urls import include, path
-
 from .views import inicio
 
 urlpatterns=[
-    path('', inicio,name='ini' ),
+    path('', inicio.as_view()),
 ]

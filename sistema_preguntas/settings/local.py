@@ -38,4 +38,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=[BASE_DIR.child('static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/home/yitmar/sistema_preguntas/static',
+]
+
+
+#STATICFILES_DIRS=[BASE_DIR.child('static')]

@@ -1,7 +1,8 @@
-from unipath import Path
-
+import os 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR= Path(__file__).ancestor(3)
+#from unipath import Path
+#BASE_DIR= Path(__file__).ancestor(3)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q8b4%4%&#2y+k-cvzrv3p$77v^if)rxww9mp2c6@ap4$izs1%t'
@@ -51,11 +52,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'sistema_preguntas.urls'
+#TEMPLATE_DIRS = [BASE_DIR('/home/yitmar/sistema_preguntas/templates')]
+#TEMPLATES_DIRS=[BASE_DIR.child('templates')]
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ '/home/yitmar/sistema_preguntas/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+           
             ],
         },
     },
@@ -83,6 +87,5 @@ USE_L10N = True
 
 USE_TZ = True
 
-TEMPLATES_DIRS=[BASE_DIR.child('templates')]
 
 
