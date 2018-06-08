@@ -1,0 +1,54 @@
+{% extends "base.html"%}
+
+{% block title %} requistrate {%endblock  %}
+{% block content%}
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <h1><a href="">inicio</a></h1>
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>                         
+                    </div>
+                </div>
+                
+                <div class="col-md-9">
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right text-uppercase">
+                            <li class="current"><a href="#slider">home</a></li>
+                            <li><a href="#about">about</a></li>
+                            <li><a href="#services">our services</a></li>
+                            <li><a href="#our-clients">our clients</a></li>
+                            <li><a href="#testimonial">testimonials</a></li>
+                            
+                            <li><a href="#contact-us">contact us</a></li>
+                        </ul>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </header> <!-- End header -->
+       
+    <section class="footer-top section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer-top-content">
+                        <img src="{{STATIC_URL }}static/img/churi.jpg" class="alignright" alt="">
+                        <h2>Another more information can be here, This can be long!</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error fugiat, animi asperiores impedit officia ut ea culpa nesciunt vel, non praesentium laboriosam cum perspiciatis, hic molestiae quisquam atque rerum minus!</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta quos, saepe eum esse odit expedita ut, officiis qui vero quasi maxime. Voluptatum esse maiores consequatur dolorem, similique in ipsa libero ex odio eum sit quia ad quidem voluptas quos distinctio animi hic quo veniam assumenda, non fugiat. Quibusdam, suscipit similique!</p>
+                        <a href="" class="learn-more">Learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- end footer top -->
+{% endblock%}

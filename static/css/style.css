@@ -100,7 +100,7 @@ body { font-family: 'Open Sans', sans-serif }
     top: 0;
     width: 100%;
 }
-.slide-bg { background-image: url(img/slide-bg.jpg) }
+.slide-bg { background-image: url(/static/img/slide-bg.jpg) }
 #slider .container {
     position: relative;
     z-index: 1;
@@ -155,7 +155,7 @@ body { font-family: 'Open Sans', sans-serif }
 #call-to-action,
 #call-to-action-2,
 #testimonial { position: relative }
-.cta-bg { background-image: url(img/bg-2.jpg) }
+.cta-bg { background-image: url(/static/img/bg-2.jpg) }
 .cta-text { color: #fff }
 .single-service {
     margin-bottom: 50px;
@@ -183,7 +183,7 @@ body { font-family: 'Open Sans', sans-serif }
 
 /* Testimonial CSS */
 
-.testimonial-bg { background-image: url(img/bg-3.jpg) }
+.testimonial-bg { background-image: url(/static/img/bg-3.jpg) }
 .single-testimonial {
     color: #fff;
     position: relative;
@@ -205,7 +205,6 @@ a.tc-control {
     margin: 10px 5px;
     width: 30px;
 }
-
 
 /* Footer CSS */
 

@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{%block title %}sistemas de evaluaciones de cantv {%endblock %}</title>
     <!-- css  -->
-    <link rel="stylesheet" href="{{STATIC_URL}}static/css/bootstrap.css">
-
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- Owl carousel 2 css -->
-    <link rel="stylesheet" href="{{STATIC_URL}}static/css/owl.carousel.css">
+    <link rel="stylesheet" href="{%static 'css/owl.carousel.css' %}">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{STATIC_URL}}static/css/style.css">
-    <link rel="stylesheet" href="{{STATIC_URL}}static/css/responsive.css" >
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    <link rel="stylesheet" href="{%static 'css/responsive.css' %}" >
     <!-- css  -->
+    <link rel="stylesheet" href="{%static 'css/sistemas_preguntas.css' %}" >
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,8 +27,44 @@
 
     <body>
 
+    {%block navar%}
+        <header class="header">
+            <div class="container">
+                <div>
+                    <img src="{{STATIC_URL}}/static/img/CINTILLO_cantv.jpg"alt="">
+                </div> 
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="logo">
+                            <h1><a href="{% url 'inicio' %}">Inicio</a></h1>
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>                         
+                        </div>
+                    </div>    
+                    <div class="col-md-9">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav navbar-right text-uppercase">
+                                <li class="current"><a href="#slider">Registro</a></li>
+                                <li><a href="#about">Categorias</a></li>
+                                <li><a href="#services">pruebas</a></li>
+                                 <li><a href="#our-clients">Resutaldo</a></li>
+                                <li><a href="{% url 'registro' %}">Usuerios</a></li>    
+                                <li><a href="#contact-us">auditoria</a></li>
+                            </ul>
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+        </header> <!-- End header -->  
+    {%endblock%}
+
     {%block content%} 
-    
     
     {%endblock%}
 
@@ -37,7 +75,7 @@
           <div class="row">
               <div class="col-sm-8">
                   <div class="footer-copyright">
-                      <p>&copy; Starter 2015, All Right Reserved. Designed with <i class="fa fa-heart"></i> by <a href="http://wpexpand.com" target="_blank">WP Expand</a></p> <!-- Please do not remove credit link -->
+                      <p>Compañia Anónima Nacional Teléfonos de Venezuela. RIF: J-00124134-5.- Todos los derechos reservados.</p> <!-- Please do not remove credit link -->
                   </div>
               </div>
               
@@ -52,28 +90,34 @@
               </div>
           </div>
       </div>
-  </footer> <!-- End footer top -->
+    </footer> <!-- End footer top -->
     
     {%endblock%}
-    <!-- jQuery form CDN -->
-    <script src="{{STATIC_URL}}https://code.jquery.com/jquery.min.js"></script>
 
+    {%block script%} 
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+    
+    {%endblock%}
+    
+   
     <!-- Bootstrap form CDN -->
-    <script src="{{STATIC_URL}}http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- Bootstrap form CDN -->
+    <script src="{%static 'js/bootstrap.min.js' %}"></script>
 
     <!-- jQUery scrolly parallax -->
-    <script src="{{STATIC_URL}}static/js/jquery.scrolly.js"></script>
+    <script src="{%static 'js/jquery.scrolly.js' %}"></script>
 
     <!-- jQuery sticky -->
-    <script src="{{STATIC_URL}}static/jquery.sticky.js"></script>
+    <script src="{%static 'js/jquery.sticky.js' %}"></script>
 
     <!-- jQuery easing -->
-    <script src="{{STATIC_URL}}static/js/jquery.easing.1.3.min.js"></script>
+    <script src="{%static 'js/jquery.easing.1.3.min.js' %}"></script>
 
     <!-- jQuery owl carousel -->
-    <script src="{{STATIC_URL}}static/owl.carousel.min.js"></script>
+    <script src="{%static 'js/owl.carousel.min.js' %}"></script>
 
     <!-- jQuery main script -->
-    <script src="{{STATIC_URL}}static/js/main.js"></script>
+    <script src="{%static 'js/main.js' %}"></script>
+    
   </body>
 </html>
