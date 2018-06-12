@@ -29,13 +29,14 @@ THIRD_PARTY_APPS=(
 )
 
 LOCAL_APPS=(
-   'apps.auditoria',
-   'apps.categoria',
-   'apps.inicio',
-   'apps.preguntas',
-   'apps.pruebas',
-   'apps.resultados',
-   'apps.users',
+    'apps.administracion',
+    'apps.auditoria',
+    'apps.categoria',
+    'apps.inicio',
+    'apps.preguntas',
+    'apps.pruebas',
+    'apps.resultados',
+    'apps.users',
 )
 
 INSTALLED_APPS = DJANGO_APPS+THIRD_PARTY_APPS+LOCAL_APPS
@@ -87,5 +88,4 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-
+AUTH_USER_MODEL= 'administracion.administrador'

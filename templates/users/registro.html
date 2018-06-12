@@ -18,28 +18,39 @@
                 <div class="col-md-6">
                     <div class="form-content">
                         <h2>Registro:</h2>
-                        <form id="contact" name="contact" method="post">  
+                        <form id="contact" name="contact" method="post">
+                            {% csrf_token %}
                             <fieldset class="clean">
-                                <input placeholder="Nombres" type="text" name="name" id="nombres" size="30" value="" required/>
+                                {{form.nombres_participante.label}}
+                                {{form.nombres_participante}}
+                                {{form.nombres_participante.errors}}
                             </fieldset>
                             <fieldset class="clean">
-                                <input placeholder="Apellidos" type="text" name="name" id="apellido" size="30" value="" required/>
+                                {{form.apellidos_participante.label}}        
+                                {{form.apellidos_participante}} 
+                                {{form.apellidos_participante.errors}}                                
+                                                               
                             </fieldset>
                             <fieldset class="clean">
-                                <input placeholder="cedula de identidad" type="text" name="name" id="cedula" size="30" value="" required/>
+                                {{form.cedula_participante.label}}                                
+                                {{form.cedula_participante}}      
+                                {{form.cedula_participante.errors}}                                
+                                                          
                             </fieldset> 
                             <fieldset class="clean">
-                                <input placeholder="telefono" type="text" name="name" id="telefono" size="telefono" value="" required/>
+                                {{form.tefelono_participante.label}}
+                                {{form.tefelono_participante}}      
+                                {{form.tefelono_participante.errors}}      
+                                                                                          
                             </fieldset> 
                             <fieldset class="clean">
-                                <input placeholder="correo electrónico" type="text" name="name" id="correo" size="30" value="" required/>
+                                {{form.correo_participarnte.label}}                                
+                                {{form.correo_participarnte}}                                                                
+                                {{form.correo_participarnte.errors}}                                                                
+
                             </fieldset>
-                            <fieldset class="clean">
-                                <input placeholder="confirme correo electrónico" type="text" name="name" id="re_correo" size="30" value="" required/>
-                            </fieldset>
-                   
                             <fieldset>
-                                <input id="submit" type="submit" name="submit" value="Send message" />  
+                                <input id="submit" type="submit" name="submit" value="guardar" />  
                             </fieldset>
                         </form>	
                     </div>                     
@@ -49,5 +60,3 @@
     </section> <!-- End contact us -->
     
 {% endblock %}
-
-

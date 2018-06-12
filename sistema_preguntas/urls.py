@@ -25,4 +25,6 @@ urlpatterns = [
     path('pruebas/',include('apps.pruebas.urls')),
     path('resultados/',include('apps.resultados.urls')),
     path('users/',include('apps.users.urls')),
+    path('administracion/',include('apps.administracion.urls')),
+   
 ]
