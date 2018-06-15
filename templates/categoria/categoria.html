@@ -1,0 +1,53 @@
+{% extends "base.html"%}
+
+{% block title %} cargar categoria {%endblock  %}
+{% block content%}
+<section id="about" class="section-padding text-center" style="margin-top:80px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="page-title">
+                    <h2>CATEGORIAS</h2>
+                    <div class="branding-photo">
+                        <img src="/static/img/device-1.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="single-about">
+                    <div class="about-icon">
+                        <i class="fa fa-home"></i>
+                    </div>      
+                    <h2>Nueva categoria</h2>
+                    <p> este moddulo permite cargar una nueva categoria </p>
+                    <li><a href="{% url 'nueva_categoria' %}">Cargar</a></li>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="single-about">
+                    <div class="about-icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <h2>Subcategoria</h2>
+                    <p> este moddulo permite cargar una subcategoria</p>
+                    <li><a href="{% url 'buscar_categoria' %}">Cargar</a></li>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="single-about">
+                    <div class="about-icon">
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <h2>elminar categoria</h2>
+                    <p> este moddulo permite elminar una categoria</p>                    
+                    <li><a href="{% url 'eliminar_categoria' %}">Cargar</a></li>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> <!-- End about -->
+
+{% endblock %}

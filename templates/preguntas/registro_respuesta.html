@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+{% block title %} registro de Respuesta {% endblock %}
+{% block content%}
+    <section id="contact-us" class="section-padding" style="margin-top:80px;">
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Registro De Respuesta</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel explicabo excepturi optio corporis iste ad sunt. Fuga itaque doloremque, ex deserunt soluta eveniet magnam illo perferendis numquam, odit rerum optio, tenetur officiis dolor! Quis nihil adipisci labore ipsam provident, porro!</p>
+                    </div>
+                </div>
+            </div>                                 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>Registro:</h2>
+                        <form id="contact" name="contact" method="post">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <br>
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="guardar"/>  
+                            </fieldset>
+                        </form>	
+                    </div>                     
+                </div>
+            </div>
+        </div>
+    </section> <!-- End contact us -->
+    
+{% endblock %}

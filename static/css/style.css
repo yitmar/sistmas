@@ -48,20 +48,20 @@ body { font-family: 'Open Sans', sans-serif }
     padding: 20px 0;
     transition: .3s;
 }
-.logo > h1 a { color: #fff }
+.logo > h1 a { color: #000 }
 .header .navbar-nav {
     margin-top: 15px;
     transition: .3s;
 }
-.header .navbar-nav > li > a { color: #fff }
+.header .navbar-nav > li > a { color: #000 }
 .header .navbar-nav > li:hover > a,
 .header .navbar-nav > li a:focus { background: none }
-.is-sticky .header { background: none repeat scroll 0 0 #000 }
+.is-sticky .header { background: none repeat scroll 0 0 #fff }
 .is-sticky .logo h1 { padding: 10px 0 }
 .is-sticky .header .navbar-nav { margin-top: 5px }
 .learn-more {
     border-radius: 5px;
-    color: #fff;
+    color: #000;
     display: inline-block;
     font-size: 16px;
     margin-top: 15px;
@@ -70,8 +70,8 @@ body { font-family: 'Open Sans', sans-serif }
 }
 .learn-more:hover {
     text-decoration: none;
-    background-color: #000;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
 }
 
 
@@ -91,7 +91,7 @@ body { font-family: 'Open Sans', sans-serif }
     background-position: center center;
 }
 .overlay-bg::after {
-    background: none repeat scroll 0 0 #000;
+    background: none repeat scroll 0 0 #fff;
     content: "";
     height: 100%;
     left: 0;
@@ -104,7 +104,7 @@ body { font-family: 'Open Sans', sans-serif }
 #slider .container {
     position: relative;
     z-index: 1;
-    color: #fff;
+    color: #000;
 }
 #slider .container,
 #slider .container .row,
@@ -129,9 +129,9 @@ body { font-family: 'Open Sans', sans-serif }
     z-index: 9;
 }
 .scroll-to-bottom a {
-    border: 1px solid #fff;
+    border: 1px solid #000;
     border-radius: 50%;
-    color: #fff;
+    color: #000;
     display: inline-block;
     font-size: 20px;
     height: 40px;
@@ -156,7 +156,7 @@ body { font-family: 'Open Sans', sans-serif }
 #call-to-action-2,
 #testimonial { position: relative }
 .cta-bg { background-image: url(/static/img/bg-2.jpg) }
-.cta-text { color: #fff }
+.cta-text { color: #000 }
 .single-service {
     margin-bottom: 50px;
     padding-left: 90px;
@@ -173,7 +173,7 @@ body { font-family: 'Open Sans', sans-serif }
     top: 0;
     width: 70px;
 }
-.single-service:hover i.fa { color: #fff }
+.single-service:hover i.fa { color: #000 }
 .single-service > h2 {
     font-size: 22px;
     font-weight: 400;
@@ -281,3 +281,10 @@ a.tc-control:hover,
 a.tc-control:hover,
 .scroll-to-bottom a:hover,
 .single-service:hover i.fa { border-color: #e74c3c }
+
+
+
+
+section{
+    padding-top: 50%;
+} 

@@ -1,10 +1,10 @@
 {% extends "base.html"%}
 
-{% block title %} registro {% endblock  %}
+{% block title %} registro de Participante{% endblock  %}
 {% block script %}  {% endblock  %}
 
 {% block content%}
-    <section id="contact-us" class="section-padding">
+    <section id="contact-us" class="section-padding" style="margin-top:80px;">
         <div class="container">   
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
@@ -40,8 +40,7 @@
                             <fieldset class="clean">
                                 {{form.tefelono_participante.label}}
                                 {{form.tefelono_participante}}      
-                                {{form.tefelono_participante.errors}}      
-                                                                                          
+                                {{form.tefelono_participante.errors}}                                                          
                             </fieldset> 
                             <fieldset class="clean">
                                 {{form.correo_participarnte.label}}                                

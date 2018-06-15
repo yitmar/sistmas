@@ -1,0 +1,11 @@
+
+
+def get_queryset(self):
+        tags=[cate.tag.all() for cate in self.queryset]
+        return zip(self.queryset, tags)
+
+
+{% for cate, tags in object_list %}
+    {{ cate.nombre_categoria}}
+    {%endfor %}
+{% endblock %}

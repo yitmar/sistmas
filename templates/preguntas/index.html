@@ -1,56 +1,55 @@
 {% extends "base.html"%}
 
-{% block title %} requistrate {%endblock  %}
+{% block title %} preguntas {%endblock%}
 {% block content%}
 
-    <section id="about" class="section-padding text-center">
+    <section id="services" class="section-padding" style="margin-top:80px">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="page-title">
-                        <h2>About us</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel explicabo excepturi optio corporis iste ad sunt. Fuga itaque doloremque, ex deserunt soluta eveniet magnam illo perferendis numquam, odit rerum optio, tenetur officiis dolor! Quis nihil adipisci labore ipsam provident, porro!</p>
-                        
-                        <div class="branding-photo">
-                            <img src="img/device-1.png" alt="">
-                        </div>
+                    <div class="page-title text-center">
+                        <h2>CATEGORIAS</h2>
+                        <p>Eija la categoria para cargar la pregunta:</p>
                     </div>
                 </div>
-            </div>
-            
+            </div>  
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="single-about">
-                        <div class="about-icon">
-                            <i class="fa fa-user"></i>
+                {% for categoria in object_list %}
+                    <div class="col-md-4">
+                        <div class="single-service">
+                            <div>
+                                <a href="{% url 'registrar_pregunta'%}">
+                                    <i class="fa fa-globe"></i>
+                                </a>
+                            </div> 
+                            <h2>{{ categoria.nombre_categoria }}</h2>
+                            <p>{{ categoria.descripcion_categoria }}</p>
+                             <!-- 
+                            <div>
+                                <h3>elegia la dificultad:</h3>
+                                
+                                <div class="">
+                                    <a href="{% url 'pregunta_avanzada' %}">avanzado</a>
+                                </div>
+                                <div class="">
+                                    <a href="{% url 'pregunta_intermedio' %}">intermedio</a>
+                                </div>
+                                <div class="">
+                                    <a href="{% url 'pregunta_basico' %}">basico</a>
+                                </div>
+                            </div>
+                            -->
                         </div>
-                        
-                        <h2>Minimalist design</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius labore itaque, nam eaque aut repellat ratione nesciunt explicabo numquam sit.</p>
+                       
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="single-about">
-                        <div class="about-icon">
-                            <i class="fa fa-home"></i>
-                        </div>
-                        
-                        <h2>Bootstrap grid</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius labore itaque, nam eaque aut repellat ratione nesciunt explicabo numquam sit.</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="single-about">
-                        <div class="about-icon">
-                            <i class="fa fa-star"></i>
-                        </div>
-                        
-                        <h2>Responsive layout</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius labore itaque, nam eaque aut repellat ratione nesciunt explicabo numquam sit.</p>
-                    </div>
-                </div>
+                {% empty %}
+                    <li>no hay categoria por favor registre alguna categoria primero:
+                        <br>
+                        <a href="{% url 'categoria'%}"> categoria</a>
+                    </li>
+                {%endfor %}
             </div>
         </div>
-    </section> <!-- End about -->
+    </section> <!-- End services -->
 
 {% endblock%}

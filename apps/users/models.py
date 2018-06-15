@@ -2,19 +2,17 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 # Create your models here.
-
-
 class participante(models.Model):
     id_participante = models.AutoField(primary_key=True)
     nombres_participante= models.CharField(max_length=50,validators=[
             RegexValidator(
-                regex='^[a-zA-Z]*$',
+                regex='^[a-zA-Z]*$|\d*$',
                 message='solo se aceptas letras'
             )
         ])
     apellidos_participante= models.CharField(max_length=50,validators=[
             RegexValidator(
-                regex='^[a-zA-Z]*$',
+                regex='^[a-zA-Z]*$|\d*$',
                 message='solo se aceptas letras'
             )
         ])
@@ -24,20 +22,21 @@ class participante(models.Model):
                 message='solo se aceptas letras'
             )
         ])
-    tefelono_participante=models.IntegerField(validators=[
+    tefelono_participante=models.CharField(max_length=10,validators=[
             RegexValidator(
                regex='^[0-9]{10}',
-               message='el campo acepta solo letras', 
+               message='el campo acepta solo numeros', 
             )
         ])
-    correo_participarnte = models.EmailField( validators=[
+    correo_participarnte = models.EmailField(validators=[
             RegexValidator(
                 regex='^[a-zA-Z]*@hotmail.com|[a-zA-Z]*@gmail.com$',
                 message='solo se permiten correos hotmail.com o gmail.com'
             )
         ])
-    fecha_participacion=models.DateField()
+#    fecha_participacion=models.DateField()
 
-    
+def __str__ (self):
+    return self.nombres_participante
 
 
