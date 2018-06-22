@@ -16,7 +16,6 @@ class lista_categorias(ListView):
         context['total_questions']= Categoria.objects.count()
         return context
 
-
 class crear_preguntas(CreateView):
     template_name='preguntas/registro.html'    
     model= pregunta
@@ -26,8 +25,8 @@ class crear_preguntas(CreateView):
         return super(crear_preguntas, self).form_valid(form)
     def model_invalid(self, form):
         return super(crear_preguntas, self).form_invalid(form)
+
 class crear_respuesta(CreateView):
-    
     template_name='preguntas/registro_respuesta.html'    
     model= respuesta
     form_class=respuesta_from
@@ -36,7 +35,6 @@ class crear_respuesta(CreateView):
         return super(crear_respuesta, self).form_valid(form)
     def model_invalid(self, form):
         return super(crear_respuesta, self).form_invalid(form)
-
 
 """
     class crear_preguntas(CreateView):

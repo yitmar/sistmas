@@ -1,9 +1,9 @@
-from .models import pregunta, respuesta
 from django import forms
 
-lista_tipo_pregunta= (('1', 'seleccion simple',), ('2', 'seleccion multiple',))
-lista_dificultad=(('1','avanzada',),('2','intermedia',),('3','basico',))
+from .models import pregunta, respuesta
 
+lista_tipo_pregunta= (('1', 'seleccion simple',), ('2', 'seleccion multiple',))
+lista_dificultad=(('1','basico',),('2','intermedia',),('3','avanzada',))
 
 class preguntas_form(forms.ModelForm):
     tipo_pregunta = forms.ChoiceField(widget=forms.RadioSelect, choices=lista_tipo_pregunta)
@@ -11,14 +11,11 @@ class preguntas_form(forms.ModelForm):
     
     class Meta:
         model=pregunta
-        fields=("nombre_pregunta","valor_pregunta","dificultad","tipo_pregunta","id_categoria")
-
-
+        fields=("nombre_pregunta","dificultad","tipo_pregunta","id_categoria")
 
 class respuesta_from(forms.ModelForm):
-    id_pregunta=forms.ModelChoiceField(queryset=pregunta.objects.all())
     
-    lista_tipo_respuesta=(('True',' verdadera',),('Flase','falsa'))
+    lista_tipo_respuesta=(('True',' verdadera',),('False','falsa'))
     tipo_respuesta=forms.ChoiceField(widget=forms.RadioSelect, choices=lista_tipo_respuesta)
 
     class Meta:

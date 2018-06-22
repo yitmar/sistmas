@@ -22,9 +22,9 @@ class participante(models.Model):
                 message='solo se aceptas letras'
             )
         ])
-    tefelono_participante=models.CharField(max_length=10,validators=[
+    tefelono_participante=models.CharField(max_length=11,validators=[
             RegexValidator(
-               regex='^[0-9]{10}',
+               regex='^[0-9]{11}',
                message='el campo acepta solo numeros', 
             )
         ])
@@ -34,7 +34,7 @@ class participante(models.Model):
                 message='solo se permiten correos hotmail.com o gmail.com'
             )
         ])
-#    fecha_participacion=models.DateField()
+    fecha_participacion=models.DateField(auto_now=True)
 
 def __str__ (self):
     return self.nombres_participante

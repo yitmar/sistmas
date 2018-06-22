@@ -1,0 +1,45 @@
+
+{% extends "base.html"%}
+
+{% block title %} preguntas {% endblock %}
+{% block content %}
+    <section id="contact-us" class="section-padding" style="margin-top:80px">
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Modulo de Pruebas</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel explicabo excepturi optio corporis iste ad sunt. Fuga itaque doloremque, ex deserunt soluta eveniet magnam illo perferendis numquam, odit rerum optio, tenetur officiis dolor! Quis nihil adipisci labore ipsam provident, porro!</p>
+                    </div>
+                </div>
+            </div>                                 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>Asignar:</h2>
+                        <form id="contact" name="contact" method="GET">
+                            <input type="text" name="q" value="{{ query|escape }}">
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="seleccionar" />  
+                            </fieldset>
+                        </form>	
+                    </div>
+                    {% if query %}                                              
+                        <h2>Results for "{{ query|escape }}":</h2>
+                        {% if results %}
+                            <ul>
+                            {% for book in results %}
+                                <li>{{ book|escape }}</l1>
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No books found</p>
+                        {% endif %}
+                    {% endif %}
+                                
+                </div>
+            </div>
+        </div>
+    </section> <!-- End contact us -->
+
+{% endblock %}

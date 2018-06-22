@@ -50,7 +50,7 @@ body { font-family: 'Open Sans', sans-serif }
 }
 .logo > h1 a { color: #000 }
 .header .navbar-nav {
-    margin-top: 15px;
+    margin-top: 5px;
     transition: .3s;
 }
 .header .navbar-nav > li > a { color: #000 }
@@ -282,9 +282,3 @@ a.tc-control:hover,
 .scroll-to-bottom a:hover,
 .single-service:hover i.fa { border-color: #e74c3c }
 
-
-
-
-section{
-    padding-top: 50%;
-} 

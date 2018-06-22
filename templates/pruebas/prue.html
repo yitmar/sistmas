@@ -1,0 +1,83 @@
+{% extends "base.html"%}
+
+{% block title %} preguntas {% endblock %}
+{% block content%}
+    <section id="contact-us" class="section-padding" style="margin-top:80px">
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Modulo de Pruebas</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel explicabo excepturi optio corporis iste ad sunt. Fuga itaque doloremque, ex deserunt soluta eveniet magnam illo perferendis numquam, odit rerum optio, tenetur officiis dolor! Quis nihil adipisci labore ipsam provident, porro!</p>
+                    </div>
+                </div>
+            </div>  
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>Asignar:</h2>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <button type="submit">Guardar</button>
+                        </form>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $("#id_estado").on("change", getMunicipios);
+                                $("#id_estado").on("change", getLocalidades);
+                            });
+
+                            function getMunicipios() {
+                                var id_categoria = $("#id_categoria").val();
+                                if (id_categoria) {
+                                    // Eliminamos las opciones anteriores del select
+                                    $("#id_categoria").html("");
+                                    var request = $.ajax({
+                                        type: "GET",
+                                        url: "{% url 'get_categoria' %}",
+                                        data: {
+                                            "id_categoria": id_categoria,
+                                        },
+                                    });
+                                    request.done(function(response) {
+                                        // Agregamos los resultados al select
+                                        $("#id_proceso").html(response.categoria);
+                                        $("#id_localidad").html("<option value='' selected='selected'>---------</option>");
+                                        $("#id_categoria, #id_localidad").trigger("change");
+                                    });
+                                } else {
+                                    $("#id_categoria").html("<option value='' selected='selected'>---------</option>");
+                                    $("#id_localidad").html("<option value='' selected='selected'>---------</option>");
+                                    $("#id_categoria, #id_localidad").trigger("change");
+                                }
+                            }    
+
+                            function getLocalidades() {
+                                var id_dificultad = $("#id_dificultad").val();
+                                if (id_dificultad) {
+                                    // Eliminamos las opciones anteriores del select
+                                    $("#id_localidad").html("");
+                                    var request = $.ajax({
+                                        type: "GET",
+                                        url: "{% url 'get_dificultad' %}",
+                                        data: {
+                                            "id_dificultad": id_dificultad,
+                                        },
+                                    });
+                                    request.done(function(response) {
+                                        // Agregamos los resultados al select
+                                        $("#id_localidad").html(response.localidades);
+                                        $("#id_localidad").trigger("change");
+                                    });
+                                } else {
+                                    $("#id_localidad").html("<option value='' selected='selected'>---------</option>");
+                                    $("#id_localidad").trigger("change");
+                                }
+                            }
+                        </script>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

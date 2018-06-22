@@ -1,0 +1,51 @@
+{% extends "base.html"%}
+
+{% block title %} preguntas {%endblock  %}
+{% block content%}
+<section id="about" class="section-padding text-center" style="margin-top:80px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="page-title">
+                    <h2>Modulo de Pruebas</h2>
+                    <div class="branding-photo">
+                        <img src="/static/img/device-1.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="single-about">
+                    <div class="about-icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <h2>Asignar Prueba</h2>
+                    <p>modulo que permite anadirle un participante</p>
+                    <li><a href="{% url 'asignar_prueba' %}">Cargar</a></li>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="single-about">
+                    <div class="about-icon">
+                        <i class="fa fa-home"></i>
+                    </div>      
+                    <h2>Crear Prueba Personalizada</h2>
+                    <p> este moddulo permite es para cragar una nueva pregunta</p>
+                    <li><a href="{% url 'crear_prueba' %}">Cargar</a></li>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="single-about">
+                    <div class="about-icon">
+                        <i class="fa fa-home"></i>
+                    </div>      
+                    <h2>Cargar Respuesta</h2>
+                        <p> este moddulo permite es para cragar una nueva pregunta</p>
+                    <li><a href="#">Cargar</a></li>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> <!-- End about -->
+{% endblock%}
