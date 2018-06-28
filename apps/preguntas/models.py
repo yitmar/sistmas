@@ -31,7 +31,6 @@ class dificultad(models.Model):
 
 class tipo_pregunta(models.Model):
     id_tipo_pregunta=models.AutoField(primary_key=True)
-    id_sub_categoria=models.ForeignKey('categoria.categoria',on_delete=models.CASCADE)
     nombre_tipo_pregunta=models.CharField(max_length=20,validators=[
             RegexValidator(
                 regex='^[a-zA-z0-9]*S',

@@ -3,5 +3,5 @@ from django.urls import include, path
 from .views import inicio
 
 urlpatterns=[
-    path('', inicio.as_view()),
+    path('resultado', inicio.as_view(),name='resultado'),
 ]

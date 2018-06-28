@@ -6,7 +6,7 @@ from .base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sistemas_pregunta',
+        'NAME': 'sistemas_preguntas',
         'USER': 'prueba_django',
         'PASSWORD':'123456',
         'HOST': 'localhost',

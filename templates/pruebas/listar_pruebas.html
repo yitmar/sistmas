@@ -12,7 +12,7 @@
                             {% for prueba in object_list %}
                             <div class="item">
                                 <div class="single-testimonial">
-                                    <a href="{% url 'ver_prueba' prueba.id_prueba %}">
+                                    <a href="{% url 'ver_prueba' pk=prueba.id_prueba %}">
                                         <img class="author-photo" src="{{STATIC_URL}}/static/img/avater.jpg" alt="">
                                     </a>
                                     <p>tiene una prueba con de la unida de {{prueba.id_categoria}} </p>

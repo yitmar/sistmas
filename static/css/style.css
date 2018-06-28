@@ -207,6 +207,15 @@ a.tc-control {
 }
 
 /* Footer CSS */
+.footer{
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:30px;
+    width:100%;
+    background:#999;
+}
+
 
 .footer-top {
     background: none repeat scroll 0 0 #333;

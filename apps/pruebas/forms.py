@@ -65,7 +65,7 @@ class formulario_crear_prueba(forms.ModelForm):
             self.fields['id_dificul'].queryset = dificultad.objects.none()
 """
 class formulario_realizar_prueba(forms.ModelForm):
-
     class Meta:
         model=resultado
-        fields=("__all__")
+        fields=('__all__')
+#id_participante,   id_categoria,   arreglo_preguntas,  arreglo_respuesta,  nota_evaluacion

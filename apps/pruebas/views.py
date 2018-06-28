@@ -1,10 +1,14 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.views.generic import View, ListView, CreateView, DetailView
-from django.db.models import Q
+from django.views.decorators.http import require_http_methods
+from django.http import HttpResponseRedirect
+from apps.resultados.models import resultado
 
 from apps.categoria.models import categoria as Categoria
+from apps.preguntas.models import pregunta, respuesta
+from apps.users.models import participante
 
-from .models import prueba
+from .models import prueba as Prueba
 from .forms import formulario_crear_prueba, formulario_asignar_prueba, formulario_realizar_prueba
  
 # Create your views here.
@@ -16,7 +20,7 @@ class inicio(View):
 
 class asignar_prueba(CreateView):
     template_name=('pruebas/asignar_prueba.html')
-    model=prueba
+    model=Prueba
     form_class=formulario_asignar_prueba
     success_url=('/')
     def model_valid(self, form):
@@ -26,11 +30,11 @@ class asignar_prueba(CreateView):
 
 class crear_prueba(CreateView):
     template_name=('pruebas/crear_pruebas.html')
-    model=prueba
+    model=Prueba
     form_class=formulario_crear_prueba
     success_url=('/')
     lista=[]
-    """
+"""
     def model_valid(self, form):
         if form.form_valid(form):
             form.save(commit=False)
@@ -39,7 +43,7 @@ class crear_prueba(CreateView):
         lista=[]
         print(form)
         return super(crear_prueba, self).form_invalid(form)
-    """
+"""
 """ medoto de ajax pendiente
     def vista_ubicacion(request):
         form = form_prueba_prueba()
@@ -73,15 +77,67 @@ class crear_prueba(CreateView):
 class lista_prueba(ListView):
     template_name=('pruebas/listar_pruebas.html')
     model=Categoria
-    queryset=prueba.objects.all()
+    queryset=Prueba.objects.all()
     def get_context_data(self, **kwargs):
         context= super(lista_prueba, self).get_context_data(**kwargs)
-        context['total_questions']= prueba.objects.count()
         return context
-
-class datos(DetailView):
+"""
+class datos(CreateView):
     template_name=('pruebas/ver_prueba.html')
-    model= prueba
+    model= Prueba
     success_url=('/')
-    
-    
+    form_class=formulario_realizar_prueba
+"""
+@require_http_methods(["GET", "POST"])
+def datos(request,pk):
+    prueba=Prueba.objects.filter(id_prueba=pk)
+    arreglo_pregunta=[]
+    for item in prueba:
+        id_participante=item.id_participante
+        id_dificultad=item.id_dificultad
+        id_categoria=item.id_categoria
+        cantidad_pregunta=item.cantidad_pregunta
+        arreglo_preguntas=item.arreglo_preguntas
+        q=0
+        while q > len(arreglo_preguntas):
+            arreglo_pregunta.append(arreglo_preguntas[q])
+        a=arreglo_preguntas[0]
+        b=0
+        while b<cantidad_pregunta:
+            b=b+1
+        a=1
+
+    cantidad=cantidad_pregunta    
+    numero_preguntas=pregunta.objects.filter(id_pregunta=a)
+
+    for item in numero_preguntas:
+        nombre=item.nombre_pregunta
+        tipo_pregunta=item.tipo_pregunta
+    respuestas=respuesta.objects.filter(id_pregunta=a)
+
+    for item in respuestas:
+        id_respuesta=item.id_respuesta
+        nombre_respuesta=item.nombre_respuesta
+        tipo_respuesta=item.tipo_respuesta
+  
+    if request.method == 'POST':
+        a=0
+        nota_evaluacion=0
+        nota=0
+        arreglo_respuesta=[]
+        while a < cantidad:
+            b=request.POST['respuesta']
+            arreglo_respuesta.append(b)
+            consulta_nota=respuesta.objects.filter(id_respuesta=b)
+            for consulta_de in consulta_nota:
+                if(consulta_de.tipo_respuesta):
+                    nota=1
+            nota_evaluacion=nota+nota_evaluacion  
+            a=a+1
+        nueva_prueba=resultado(id_participante=id_participante,id_categoria=id_categoria,arreglo_preguntas=arreglo_pregunta,arreglo_respuesta=arreglo_respuesta,nota_evaluacion=nota_evaluacion)
+        nueva_prueba.save()
+        return HttpResponseRedirect('/')
+    else:
+        return render(request, 'pruebas/ver_prueba.html',
+        {'numero_preguntas':numero_preguntas,'respuestas':respuestas,'prueba':prueba},)
+

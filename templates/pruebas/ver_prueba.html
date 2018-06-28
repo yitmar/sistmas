@@ -1,49 +1,51 @@
-<!------ Include the above in your HEAD tag ---------->
+<!-- Include the above in your HEAD tag -->
+
 {% extends "base.html"%}
+
 {% block title %} prenta la prueba {% endblock %}
 
 {% block content %}
-
-    <div class="container-fluid bg-info" style="margin-top:100px;">
-        {%for prueba in object_list %}
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>
-                            <span class="label label-warning" id="qid">2</span> 
-                            THREE is CORRECT
-                        </h3>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-xs-3 col-xs-offset-5">
-                            <div id="loadbar" style="display: none;">
-                                <div class="blockG" id="rotateG_01"></div>
-                                <div class="blockG" id="rotateG_02"></div>
-                                <div class="blockG" id="rotateG_03"></div>
-                                <div class="blockG" id="rotateG_04"></div>
-                                <div class="blockG" id="rotateG_05"></div>
-                                <div class="blockG" id="rotateG_06"></div>
-                                <div class="blockG" id="rotateG_07"></div>
-                                <div class="blockG" id="rotateG_08"></div>
+    <div class="container-fluid bg-info" style="margin-top:150px; margin-bottom:150px;">
+        <div class="modal-dialog">
+            <form id="contact" name="contact" method="post">
+                {% csrf_token %}
+                <div class="modal-content form-content">
+                    <label>
+                        nombre participante:
+                    </label>
+                    <input type="hidden" name="id_participante" value="1"  disabled>{{ participante.nombre_participante}}
+                    {% for condi in prueba %}
+                        {%for item in numero_preguntas%}
+                            <div class="modal-header">
+                                <label>
+                                    <span class="label label-warning" id="pregunta">{{condi.cantidad_pregunta}}</span>{{item.nombre_pregunta}}
+                                </label>
                             </div>
-                        </div>
-                        <div class="quiz" id="quiz" data-toggle="buttons">
-                            <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="1">1 One</label>
-                            <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="2">2 Two</label>
-                            <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="3">3 Three</label>
-                            <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span> <input type="radio" name="q_answer" value="4">4 Four</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer text-muted">
-                        <span id="answer"></span>
-                    </div>
+                            <div class="modal-body">
+                                {%for respuesta in respuestas %}
+                                    <div class="quiz" id="" data-toggle="buttons" style="margin-bottom:2px;">
+                                        <label class="btn btn-lg btn-primary btn-block">
+                                            <span class="btn-label">
+                                                <i class="glyphicon glyphicon-chevron-right"></i>
+                                            </span>
+                                            {%if condi.tipo_pregunta == "1" %} 
+                                                <input type="radio" name="respuestaS" value="{{respuesta.tipo_respuesta}}">123{{respuesta.nombre_respuesta}}
+                                            {%else%}
+                                            <input type="radio" name="respuesta" value="{{respuesta.id_respuesta}}">{{respuesta.nombre_respuesta}}
+                                            {%endif%}
+                                        </label>
+                                    </div>
+                                {%endfor%}
+                            </div>
+                            <div class="modal-footer text-muted">
+                            </div>
+                        {%endfor%}
+                        <fieldset>
+                            <input id="submit" type="submit" name="submit" value="finalizar" />  
+                        </fieldset>
+                    {% endfor %}
                 </div>
-            </div>
-        {% empty %}
-            <div>
-                no tiene puebra para hacer hay error hable con el duño del sistema
-
-            </div>    
-        {% endfor %}
+            </form>
+        </div>  
     </div>
 {%endblock%}
