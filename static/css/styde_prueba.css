@@ -32,7 +32,7 @@ label .btn-label {
     top: 0;
     display: inline-block;
     padding: 0 10px;
-    background: rgba(0,0,0,.15);
+    background: #FFF ;
     height: 100%
 }
 
@@ -308,7 +308,7 @@ label .glyphicon {
 }
 @-moz-keyframes fadeG {
     0% {
-        background-color: #000
+        background-color: #FFF
     }
 
     100% {
@@ -318,7 +318,7 @@ label .glyphicon {
 
 @-webkit-keyframes fadeG {
     0% {
-        background-color: #000
+        background-color: #FFF
     }
 
     100% {
@@ -328,7 +328,7 @@ label .glyphicon {
 
 @-ms-keyframes fadeG {
     0% {
-        background-color: #000
+        background-color: #FFF
     }
 
     100% {
@@ -338,7 +338,7 @@ label .glyphicon {
 
 @-o-keyframes fadeG {
     0% {
-        background-color: #000
+        background-color: #fff
     }
     100% {
         background-color: #FFF
@@ -347,7 +347,7 @@ label .glyphicon {
 
 @keyframes fadeG {
     0% {
-        background-color: #000
+        background-color: #fff
     }
 
     100% {

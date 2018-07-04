@@ -1,0 +1,36 @@
+{% extends "base.html"%}
+
+{% block title %} resultado {%endblock  %}
+{% block content %}
+    <div id="testimonial" class="section-padding" style="margin-top:150px">
+        <div data-velocity="-.3" class="overlay-bg testimonial-bg"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    {% for resulta in resultado%}
+                        <div>
+                            <h3>prueba de {{resulta.id_categoria}} 
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{resulta.id_resultado}}" aria-expanded="false" aria-controls="collapseExample">
+                                    ver detalle    
+                                </button>
+                            </h3>
+                            <div class="collapse" id="{{resulta.id_resultado}}">
+                                <div class="card card-body">
+                                    <p>la nota del participante {{resulta.id_participante}} es :{{resulta.nota_evaluacion}}</p> 
+                                </div>
+                            </div>         
+                        </div>
+                    {% empty %}
+                        <div>
+                            <p>
+                               el participante no a realizado ninguna prueba
+                            </p>
+                         
+                        </div>
+                    {% endfor%}
+                    <a href="{%url 'buscar' %}">volver</a>
+                </div>
+            </div>
+        </div>
+    </div>    <!-- End testimonials -->
+{% endblock%}

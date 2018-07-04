@@ -19,7 +19,7 @@ class participante(models.Model):
     cedula_participante=models.CharField(max_length=9,unique=True,validators=[
             RegexValidator(
                 regex='^[0-9]{6,8}',
-                message='solo se aceptas letras'
+                message='solo se aceptas numeros'
             )
         ])
     tefelono_participante=models.CharField(max_length=11,validators=[

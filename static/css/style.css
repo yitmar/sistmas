@@ -61,7 +61,7 @@ body { font-family: 'Open Sans', sans-serif }
 .is-sticky .header .navbar-nav { margin-top: 5px }
 .learn-more {
     border-radius: 5px;
-    color: #000;
+    color: #fff;
     display: inline-block;
     font-size: 16px;
     margin-top: 15px;
@@ -129,7 +129,7 @@ body { font-family: 'Open Sans', sans-serif }
     z-index: 9;
 }
 .scroll-to-bottom a {
-    border: 1px solid #000;
+    border: 1px solid #fff;
     border-radius: 50%;
     color: #000;
     display: inline-block;
@@ -207,14 +207,6 @@ a.tc-control {
 }
 
 /* Footer CSS */
-.footer{
-    position:fixed;
-    left:0px;
-    bottom:0px;
-    height:30px;
-    width:100%;
-    background:#999;
-}
 
 
 .footer-top {

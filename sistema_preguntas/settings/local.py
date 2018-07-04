@@ -43,5 +43,6 @@ STATICFILES_DIRS = [
     '/home/yitmar/sistema_preguntas/static',
 ]
 
-
 #STATICFILES_DIRS=[BASE_DIR.child('static')]
+
+MANDRILL_API_KEY='WalmP9hPRFI4qi6e5Wo93w'

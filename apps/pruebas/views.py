@@ -3,6 +3,7 @@ from django.views.generic import View, ListView, CreateView, DetailView
 from django.views.decorators.http import require_http_methods
 from django.http import HttpResponseRedirect
 from apps.resultados.models import resultado
+from django.core.mail import EmailMessage
 
 from apps.categoria.models import categoria as Categoria
 from apps.preguntas.models import pregunta, respuesta
@@ -19,6 +20,7 @@ class inicio(View):
         return render(request,'pruebas/index.html')
 
 class asignar_prueba(CreateView):
+    
     template_name=('pruebas/asignar_prueba.html')
     model=Prueba
     form_class=formulario_asignar_prueba
@@ -90,6 +92,7 @@ class datos(CreateView):
 """
 @require_http_methods(["GET", "POST"])
 def datos(request,pk):
+    
     prueba=Prueba.objects.filter(id_prueba=pk)
     arreglo_pregunta=[]
     for item in prueba:
@@ -136,8 +139,14 @@ def datos(request,pk):
             a=a+1
         nueva_prueba=resultado(id_participante=id_participante,id_categoria=id_categoria,arreglo_preguntas=arreglo_pregunta,arreglo_respuesta=arreglo_respuesta,nota_evaluacion=nota_evaluacion)
         nueva_prueba.save()
+        send_email(request)
         return HttpResponseRedirect('/')
     else:
         return render(request, 'pruebas/ver_prueba.html',
         {'numero_preguntas':numero_preguntas,'respuestas':respuestas,'prueba':prueba},)
 
+def send_email(request):
+    
+    msg=EmailMessage(subject="prueba",from_email="yitmar.14151819@gmail.com",to=['yitmar.14151819@hotmail.com'])
+    msg.template_name='pantilla de prueba'
+    msg.send()
