@@ -5,3 +5,57 @@
     height:8%;
     width:100%;
 }
+* {
+  box-sizing: border-box;
+}
+.examen{
+    position: relative;
+    color: black;
+  }
+  
+.examen h4 {
+    color: black;
+    font-weight: 60;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: left;
+    line-height: 25px;
+  }
+  
+.respuesta {
+    padding: 2%;
+    background: #FAFAFA;
+  }
+  
+.respuesta h4 {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  
+.respuesta input[type=radio] {
+    display: none;
+  }
+  
+.respuesta label {
+    display: inline-block;
+    margin: 4px;
+    padding: 8px;
+    background: #FAE3BB;
+    color: #4C3000;
+    width: calc(50% - 8px);
+    min-width: 100px;
+    cursor: pointer;
+  }
+  
+.respuesta label:hover {
+    background: rgb(42, 126, 17);
+  }
+  
+.respuesta label input[type=radio]:active {
+    background: rgb(173, 23, 3);
+    color: #FAFAFA;
+  }
+#respuesta input[type=radio]:active{
+  background: rgb(173, 23, 3);
+  color: #FAFAFA;
+}

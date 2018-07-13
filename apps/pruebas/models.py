@@ -1,9 +1,11 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.postgres.fields import ArrayField
+
 # Create your models here.
 class prueba(models.Model):
     id_prueba=models.AutoField(primary_key=True)
+#   nombre_prueba=models.CharField(max_length=50)    
     id_participante=models.ForeignKey('users.participante',on_delete=models.CASCADE)
     id_categoria=models.ForeignKey('categoria.categoria',on_delete=models.CASCADE)    
     id_dificultad=models.ForeignKey('preguntas.dificultad',on_delete=models.CASCADE)
@@ -31,3 +33,11 @@ class prueba(models.Model):
     
     def __str__(self):
         return self.id_prueba
+
+class prueba_presona(models.Model):
+    id_prueba_presona=models.AutoField(primary_key=True)
+    id_participante=models.ForeignKey('users.participante',on_delete=models.CASCADE)
+    id_prueba=models.ForeignKey('pruebas.prueba',on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.id_prueba_presona 

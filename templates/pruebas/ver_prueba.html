@@ -6,46 +6,38 @@
 
 {% block content %}
     <div class="container-fluid bg-info" style="margin-top:150px; margin-bottom:150px;">
-        <div class="modal-dialog">
-            <form id="contact" name="contact" method="post">
-                {% csrf_token %}
-                <div class="modal-content form-content">
-                    <label>
-                        nombre participante:
-                    </label>
-                    <input type="hidden" name="id_participante" value="1"  disabled>{{ participante.nombre_participante}}
+        <form id="contact" method="post">
+            {% csrf_token %}
+            <div class="form-content">
+                <label>
+                    nombre participante:
+                </label>
+                <div class="examen">
                     {% for condi in prueba %}
-                        {%for item in numero_preguntas%}
-                            <div class="modal-header">
-                                <label>
-                                    <span class="label label-warning" id="pregunta">{{condi.cantidad_pregunta}}</span>{{item.nombre_pregunta}}
-                                </label>
-                            </div>
-                            <div class="modal-body">
+                        {%for item in preguntaa%}                                
+                            <div class="respuesta">
+                                <h4 id="nombrePregunta"> 
+                                    <span class="label label-warning" id="pregunta">{{condi.cantidad_pregunta}}</span>
+                                    {{item.nombre_pregunta}}
+                                </h4>
+                            </div>   
+                            <div class="respuesta" id="respuesta">
                                 {%for respuesta in respuestas %}
-                                    <div class="quiz" id="" data-toggle="buttons" style="margin-bottom:2px;">
-                                        <label class="btn btn-lg btn-primary btn-block">
-                                            <span class="btn-label">
-                                                <i class="glyphicon glyphicon-chevron-right"></i>
-                                            </span>
-                                            {%if condi.tipo_pregunta == "1" %} 
-                                                <input type="radio" name="respuestaS" value="{{respuesta.tipo_respuesta}}">123{{respuesta.nombre_respuesta}}
-                                            {%else%}
-                                            <input type="radio" name="respuesta" value="{{respuesta.id_respuesta}}">{{respuesta.nombre_respuesta}}
-                                            {%endif%}
-                                        </label>
-                                    </div>
+                                    <label>
+                                        <input type="radio" name="respuesta" value="{{respuesta.id_respuesta}}" class="respuesta">
+                                        {{respuesta.nombre_respuesta}}
+                                    </label>
                                 {%endfor%}
-                            </div>
-                            <div class="modal-footer text-muted">
-                            </div>
+                            </div>        
                         {%endfor%}
-                        <fieldset>
-                            <input id="submit" type="submit" name="submit" value="finalizar" />  
-                        </fieldset>
+                        <div class="text-muted">
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="finalizar" />  
+                            </fieldset>
+                        </div>
                     {% endfor %}
                 </div>
-            </form>
-        </div>  
+            </div>
+        </form> 
     </div>
 {%endblock%}

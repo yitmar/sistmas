@@ -12,58 +12,23 @@ class formulario_asignar_prueba(forms.ModelForm):
     class Meta:
         model=prueba
         fields=('id_participante','id_categoria','id_dificultad','tipo_prueba','durancion_pruaba','valor_prueba','cantidad_pregunta')
-"""
-    id_prueba=models.AutoField(primary_key=True)
-    id_participante=models.ForeignKey('users.participante',on_delete=models.CASCADE)
-    id_categoria=models.ForeignKey('categoria.categoria',on_delete=models.CASCADE)    
-    id_dificultad=models.ForeignKey('preguntas.dificultad',on_delete=models.CASCADE)
-    durancion_pruaba=models.IntegerField()
-    valor_prueba=models.IntegerField()
-    cantidad_pregunta=models.IntegerField()
-    tipo_prueba=models.CharField(max_length=50)    
-    arreglo_preguntas=ArrayField(ArrayField(models.IntegerField()))
-"""
+
 class formulario_crear_prueba(forms.ModelForm):
-    preguntas = forms.ModelMultipleChoiceField(queryset=pregunta.objects.all(), widget=forms.CheckboxSelectMultiple)    
-    lista=[]
-    lista.append(1)
-    print (lista)
-    """for a in conte:
-        lista=[]
-        print(a)
-        queryset=(int(a.objects.id_pregunta),str(a.nombre_pregunta),)
-        lista.append(queryset)  
-    """
-    #preguntas = ArrayField(models.IntegerField(),default=[], blank=True, choices=(elemento)
-    #print elemento
+    #PREGUNTAS = forms.ModelMultipleChoiceField(queryset=pregunta.objects.all(), widget=forms.CheckboxSelectMultiple)
+    preguntas=pregunta.objects.all()
+    lista_preguntas=[]
+    for pre in preguntas:
+        id_pre=pre.id_pregunta            
+        nombre_pregunta=pre.nombre_pregunta
+        listaaa=(id_pre,nombre_pregunta)
+        lista_preguntas.append(listaaa)
+    print(lista_preguntas)
+    PREGUNTAS=forms.ChoiceField(widget=forms.CheckboxSelectMultiple, choices=lista_preguntas)
     class Meta:
         model=prueba
-        #fields=('id_participante','id_categoria','id_dificultad','durancion_pruaba','valor_prueba','cantidad_pregunta','preguntas')
-        fields=('__all__')
-"""
-    class form_prueba_prueba(forms.Form):
-        id_categorias = forms.ModelChoiceField(
-            label=u'categoria', 
-            queryset=categoria.objects.all()
-        )
-        id_dificul = forms.ModelChoiceField(
-            label=u'dificultad', 
-            queryset=dificultad.objects.all()
-        )
-        lista_prguntas=forms.ModelChoiceField(
-            label=u'pretungas',
-            queryset=prueba.objects.all()
-        )
-        nombre_de_intructor=forms.ModelChoiceField(
-            label=u'intructor',
-            queryset=administrador.objects.all()
-        )
+        fields=('id_participante','id_categoria','id_dificultad','durancion_pruaba','valor_prueba','cantidad_pregunta',"PREGUNTAS")
+        #fields=('__all__')
 
-        def__init__(self, *args, **kwargs):
-            super(form_prueba_prueba, self).__init__(*args, **kwargs)
-            self.fields['id_categorias'].queryset = categoria.objects.none()
-            self.fields['id_dificul'].queryset = dificultad.objects.none()
-"""
 class formulario_realizar_prueba(forms.ModelForm):
     class Meta:
         model=resultado
