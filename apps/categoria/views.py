@@ -1,6 +1,6 @@
-from django.shortcuts import render, render_to_response
-from django.views.generic import View, ListView, CreateView
-from django.db.models import Q
+from django.shortcuts import render, render_to_response, redirect
+from django.views.generic import View, ListView, CreateView, DeleteView
+
 from .models import categoria
 from .forms import nueva_categoria_form
 
@@ -13,9 +13,14 @@ class inicio(View):
     def get(self, request, *args, **kwargs):
         return render(request,'categoria/index.html')
 
-class categorias(ListView):
-    def get(self, request, *args, **kwargs):
-        return render(request,'categoria/categoria.html')
+class vistas_categorias(ListView):    
+    template_name=('categoria/categoria.html')
+    model=categoria
+    queryset=categoria.objects.all()
+    def get_context_data(self, **kwargs):
+        context= super(vistas_categorias, self).get_context_data(**kwargs)
+        context['total_questions']= categoria.objects.count()
+        return context    
     
 class nueva_categoria(CreateView):
     template_name='categoria/nueva_categoria.html'    
@@ -26,24 +31,10 @@ class nueva_categoria(CreateView):
         return super(nueva_categoria, self).form_valid(form)
     def model_invalid(self, form):
         return super(nueva_categoria, self).form_invalid(form)
-"""
-def search(request):
-    query = request.GET.get('q', '')
-    if query:
-        qset = (
-            Q(title__icontains=query) |
-            Q(authors__first_name__icontains=query) |
-            Q(authors__last_name__icontains=query)
-        )
-        results = categoria.objects.filter(qset).distinct()
-    else:
-        results = []
-    return render_to_response("categoria/busca_categoira.html", {
-        "results": results,
-        "query": query
-    })
-def busqueda(self,request):
-    q = request.GET.get('q', '')
-    eventos = categoria.objects.filter(ciudad__nombre__icontains=q)
-    return render(request, 'categoria/busca_categoira.html', {'eventos': eventos})
-"""
+
+def vista_eliminar_categoria(request,pk):
+    Categoria=categoria.objects.filter(id_categoria=pk)
+    if request.method == 'POST':
+        Categoria.delete()
+        return redirect('/')
+    return render(request, 'categoria/eliminar_categoria.html',{'Categoria':Categoria})

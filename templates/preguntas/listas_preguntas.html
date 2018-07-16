@@ -1,0 +1,52 @@
+{% extends "base.html"%}
+
+{% block title %} lista de preguntas {% endblock %}
+{% block content %}
+
+    <section id="services" class="section-padding" style="margin-top:80px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Preguntas</h2>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>
+                                Nombre de pregunta
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pregunta in preguntas%}
+                        <tr>
+                            <td>
+                                {{pregunta.nombre_pregunta}}
+                            </td>
+                            <td>
+                                <a href="#">editar</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'eliminar_pregunta' pk=pregunta.id_pregunta %}">eliminar</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                            no hay preguntas
+                            <a href="{% url 'preguntas' %}">volver</a>
+                        {% endfor %}
+                        <tr>
+                            <td>
+                                cargar nueva pregunta
+                                <a href="{% url 'registrar_pregunta' %}">+</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>        
+        </div>
+    </section>
+{% endblock %}

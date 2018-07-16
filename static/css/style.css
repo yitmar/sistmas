@@ -163,7 +163,7 @@ body { font-family: 'Open Sans', sans-serif }
     position: relative;
 }
 .single-service i.fa {
-    border: 1px solid #ddd;
+    border: 1px solid #000;
     font-size: 24px;
     height: 70px;
     left: 0;
@@ -196,8 +196,8 @@ body { font-family: 'Open Sans', sans-serif }
 .author-name { font-weight: 700 }
 .author-name span { font-weight: 300 }
 a.tc-control {
-    border: 1px solid #ddd;
-    color: #ddd;
+    border: 1px solid #000;
+    color: #000000;
     display: inline-block;
     font-size: 18px;
     height: 25px;

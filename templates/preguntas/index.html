@@ -16,32 +16,21 @@
             <div class="row">
                 {% for categoria in object_list %}
                     <div class="col-md-4">
-                        <div class="single-service">
-                            <div>
-                                <a href="{% url 'registrar_pregunta'%}">
-                                    <i class="fa fa-globe"></i>
-                                </a>
-                            </div> 
-                            <h2>{{ categoria.nombre_categoria }}</h2>
-                            <p>{{ categoria.descripcion_categoria }}</p>
-                             <!-- 
-                            <div>
-                                <h3>elegia la dificultad:</h3>
-                                
-                                <div class="">
-                                    <a href="{% url 'pregunta_avanzada' %}">avanzado</a>
-                                </div>
-                                <div class="">
-                                    <a href="{% url 'pregunta_intermedio' %}">intermedio</a>
-                                </div>
-                                <div class="">
-                                    <a href="{% url 'pregunta_basico' %}">basico</a>
-                                </div>
+                        <h2>{{ categoria.nombre_categoria }}</h2>
+                        <p>{{ categoria.descripcion_categoria }}</p>
+                        <div class="center">
+                            <div class="col-md-3">
+                                <a href="{% url 'pregunta_avanzada' pk=categoria.id_categoria %}">avanzado</a>
                             </div>
-                            -->
-                        </div>
-                       
+                            <div class="col-md-3">
+                                <a href="{% url 'pregunta_intermedio' pk=categoria.id_categoria %}">intermedio</a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{% url 'pregunta_basico' pk=categoria.id_categoria %}">basico</a>
+                            </div>                        
+                        </div>            
                     </div>
+          
                 {% empty %}
                     <li>no hay categoria por favor registre alguna categoria primero:
                         <br>

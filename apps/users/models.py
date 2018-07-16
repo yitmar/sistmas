@@ -36,7 +36,7 @@ class participante(models.Model):
         ])
     fecha_participacion=models.DateField(auto_now=True)
 
-def __str__ (self):
-    return self.nombres_participante
+    def __str__(self):
+        return '{} {}'.format(self.nombres_participante, self.apellidos_participante)
 
 

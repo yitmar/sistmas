@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, CreateView
 
 from apps.categoria.models import categoria as Categoria
+
 from .models import pregunta, respuesta
 from .froms import preguntas_form, respuesta_from
 
@@ -36,18 +37,23 @@ class crear_respuesta(CreateView):
     def model_invalid(self, form):
         return super(crear_respuesta, self).form_invalid(form)
 
-"""
-    class crear_preguntas(CreateView):
-        template_name='preguntas/registro.html'    
-        model= pregunta
-        form_class=preguntas_form
-        success_url=('preguntas/registro_respuesta')
-        def model_valid(self,request, form):
-            if super(crear_preguntas, self).form_valid(form):
-                f = preguntas_form(request.POST)
-                new_author = f.save(commit=False)
-                new_author.some_
-                return 
-        def model_invalid(self, form):
-            return super(crear_preguntas, self).form_invalid(form)
-"""
+def vista_preguntas_avanzada(request, pk):
+    preguntas=pregunta.objects.filter(id_categoria=pk, dificultad=3)
+    return render(request,'preguntas/listas_preguntas.html',{'preguntas':preguntas})
+
+def vista_preguntas_intermedio(request, pk):
+    preguntas=pregunta.objects.filter(id_categoria=pk, dificultad=2)
+    return render(request,'preguntas/listas_preguntas.html',{'preguntas':preguntas})
+
+def vista_preguntas_basico(request, pk):
+    preguntas=pregunta.objects.filter(id_categoria=pk, dificultad=1)
+    return render(request,'preguntas/listas_preguntas.html',{'preguntas':preguntas})
+
+def vista_eliminar_pregunta(request, pk):
+    Pregunta=pregunta.objects.filter(id_pregunta=pk)
+    if request.method == 'POST':
+        Pregunta.delete()
+        return redirect('/')
+    return render(request, 'preguntas/eliminar_pregunta.html',{'Pregunta':Pregunta})
+
+    

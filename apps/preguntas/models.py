@@ -17,8 +17,8 @@ class pregunta(models.Model):
     tipo_pregunta=models.CharField(max_length=15)
     pregunta_imagen=models.ImageField()
     
-def __str__(self):
-    return self.nombre_pregunta
+    def __str__(self):
+        return '{}'.format(self.nombre_pregunta) 
     
 class dificultad(models.Model):
     id_dificultad=models.AutoField(primary_key=True)
@@ -29,6 +29,9 @@ class dificultad(models.Model):
             )
         ])
 
+    def __str__(self):
+        return '{}'.format(self.nombre_dificultad) 
+
 class tipo_pregunta(models.Model):
     id_tipo_pregunta=models.AutoField(primary_key=True)
     nombre_tipo_pregunta=models.CharField(max_length=20,validators=[
@@ -37,6 +40,8 @@ class tipo_pregunta(models.Model):
                 message='solo se acepta solo numero'
             )
         ])
+    def __str__(self):
+        return '{}'.format(self.nombre_tipo_pregunta) 
 
 class respuesta(models.Model):
     id_respuesta=models.AutoField(primary_key=True)
@@ -48,3 +53,6 @@ class respuesta(models.Model):
         ])
     id_pregunta=models.ForeignKey('pregunta',on_delete=models.CASCADE)
     tipo_respuesta=models.BooleanField()
+
+    def __str__(self):
+        return '{}'.format(self.nombre_respuesta)

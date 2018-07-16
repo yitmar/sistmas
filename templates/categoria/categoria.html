@@ -8,44 +8,44 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="page-title">
                     <h2>CATEGORIAS</h2>
-                    <div class="branding-photo">
-                        <img src="/static/img/device-1.png" alt="">
-                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-md-4">
                 <div class="single-about">
                     <div class="about-icon">
                         <i class="fa fa-home"></i>
                     </div>      
                     <h2>Nueva categoria</h2>
                     <p> este moddulo permite cargar una nueva categoria </p>
-                    <li><a href="{% url 'nueva_categoria' %}">Cargar</a></li>
+                    <li><a href="{% url 'nueva_categoria' %}">crear</a></li>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="single-about">
-                    <div class="about-icon">
-                        <i class="fa fa-user"></i>
+            {% for categoria in object_list %}
+                <div class="col-md-4 col-sm-4">
+                    <div class="single-about">
+                        <div class="about-icon">
+                            <i class="fa fa-home"></i>
+                        </div> 
+                        <h2>{{ categoria.nombre_categoria }}</h2>
+                        <p>{{ categoria.descripcion_categoria }}</p>
+                        <div>
+                            <div class="col-md-6 col-sm-6">
+                                <a href="#">editar</a>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <a href="{% url 'eliminar_categoria' pk=categoria.id_categoria %}">eliminar</a>
+                            </div>
+                        </div>
                     </div>
-                    <h2>Subcategoria</h2>
-                    <p> este moddulo permite cargar una subcategoria</p>
-                    <li><a href="{% url 'buscar_categoria' %}">Cargar</a></li>
                 </div>
-            </div>
-
-            <div class="col-sm-4">
-                <div class="single-about">
-                    <div class="about-icon">
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <h2>elminar categoria</h2>
-                    <p> este moddulo permite elminar una categoria</p>                    
-                    <li><a href="{% url 'eliminar_categoria' %}">Cargar</a></li>
-                </div>
-            </div>
+                {% empty %}
+                <li>no hay categoria por favor registre alguna categoria primero:
+                    <br>
+                    <a href="{% url 'categoria'%}"> categoria</a>
+                </li>
+            {% endfor %}
         </div>
     </div>
 </section> <!-- End about -->

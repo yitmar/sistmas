@@ -16,8 +16,8 @@ class categoria(models.Model):
                 message=' '
             )
         ])
-def __str__(self):
-    return self.nombre_categoria
+    def __str__(self):
+        return '{}'.format(self.nombre_categoria) 
 
 class sub_categoria(models.Model):
     id_subcategoria=models.AutoField(primary_key=True)
