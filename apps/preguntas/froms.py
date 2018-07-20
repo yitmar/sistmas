@@ -9,14 +9,10 @@ lista_dificultad=(('1','basico',),('2','intermedia',),('3','avanzada',))
 class preguntas_form(forms.ModelForm):
 
     tipo_pregunta = forms.ChoiceField(widget=forms.RadioSelect, choices=lista_tipo_pregunta)
-    dificultad = forms.ChoiceField(widget=forms.RadioSelect, choices=lista_dificultad)
-    
     class Meta:
         model=pregunta
-        fields=("nombre_pregunta","dificultad","tipo_pregunta","id_categoria")
-        labels={
-            'id_categoria':'Categoria',
-        }
+        fields=("nombre_pregunta","tipo_pregunta")
+
 
 class respuesta_from(forms.ModelForm):
     
@@ -24,4 +20,4 @@ class respuesta_from(forms.ModelForm):
     tipo_respuesta=forms.ChoiceField(widget=forms.RadioSelect, choices=lista_tipo_respuesta)
     class Meta:
         model=respuesta
-        fields=("id_pregunta","nombre_respuesta","tipo_respuesta")
+        fields=("nombre_respuesta","tipo_respuesta")

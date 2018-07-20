@@ -11,7 +11,7 @@
                         <div>
                             <h3>prueba de {{resulta.id_categoria}} 
                                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{resulta.id_resultado}}" aria-expanded="false" aria-controls="collapseExample">
-                                    ver detalle    
+                                    ver detalles
                                 </button>
                             </h3>
                             <div class="collapse" id="{{resulta.id_resultado}}">
@@ -25,7 +25,6 @@
                             <p>
                                el participante no a realizado ninguna prueba
                             </p>
-                         
                         </div>
                     {% endfor%}
                     <a href="{%url 'buscar' %}">volver</a>

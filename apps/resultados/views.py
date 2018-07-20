@@ -11,15 +11,7 @@ from .models import resultado as Resultado
 class vista_buscar_resultado(View):
     def get(self, request, *args, **kwargs):
         return render(request,'resultados/index.html')
-"""
-class vista_mostras_resultado(TemplateView):
-    print ("113")    
-    template_name='resultados/mostrar.html'
-    def post(self, request, *arg, **kwargs):
-        id_resultado= request.POST['buscar']
-        print(id_resultado)
-        return render(request,'resultados/mostrar.html')
-"""
+
 @require_http_methods(["GET", "POST"])
 def vista_mostras_resultado(request):
     if request.method== 'POST':

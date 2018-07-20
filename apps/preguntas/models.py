@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 # Create your models here.
 
@@ -15,7 +14,7 @@ class pregunta(models.Model):
         ])
     dificultad=models.CharField(max_length=150)
     tipo_pregunta=models.CharField(max_length=15)
-    pregunta_imagen=models.ImageField()
+    pregunta_imagen=models.ImageField(blank=True, null=True)
     
     def __str__(self):
         return '{}'.format(self.nombre_pregunta) 

@@ -1,13 +1,14 @@
 from django.urls import include, path
-
-from .views import lista_categorias, crear_preguntas, crear_respuesta, vista_preguntas_avanzada, vista_preguntas_basico, vista_preguntas_intermedio, vista_eliminar_pregunta
+from django.conf.urls import url
+from .views import lista_categorias, vista_lista_preguntas, vista_crear_preguntas, vista_eliminar_pregunta, vista_buscar_repuesta, vista_eliminar_repuesta, vista_crear_respuesta
 
 urlpatterns=[
     path('', lista_categorias.as_view(),name="preguntas"),
-    path('registrar respuesta', crear_respuesta.as_view(),name="registrar_respuesta"),
-    path('registrar pregunta', crear_preguntas.as_view(),name="registrar_pregunta"),
-    path(r'^registrar_avanzado/(?P<pk>[0-9])\d/$', vista_preguntas_avanzada,name="pregunta_avanzada"),
-    path(r'^registrar_intermedio/(?P<pk>[0-9])\d/$', vista_preguntas_intermedio,name="pregunta_intermedio"),
-    path(r'^registrar_basico/(?P<pk>[0-9])\d/$',vista_preguntas_basico,name="pregunta_basico"),
-    path(r'^eliminar_pregunta/(?P<pk>[0-9])\d/$', vista_eliminar_pregunta, name="eliminar_pregunta"),
+    path(r'registrar pregunta/(<pk>[0-9])(<tipo>[0-9])',vista_crear_preguntas,name="registrar_pregunta"),
+    path(r'lista_pregunta/(<pk>[0-9])(<tipo>[0-9])\d+/', vista_lista_preguntas,name="lista_pregunta"),
+    path(r'eliminar_pregunta/(<pk>[0-9])', vista_eliminar_pregunta, name="eliminar_pregunta"),
+
+    path(r'registrar respuesta/(<pk>[0-9])\d+/', vista_crear_respuesta, name="registrar_respuesta"),
+    path(r'buscar_repuesta/(<pk>[0-9])\d+/', vista_buscar_repuesta, name="buscar_repuesta"),
+    path(r'eliminar_respuesta/(<pk>[0-9])\d+/', vista_eliminar_repuesta, name="eliminar_respuesta"),
 ]

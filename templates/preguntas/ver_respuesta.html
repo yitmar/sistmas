@@ -1,0 +1,63 @@
+{% extends "base.html"%}
+
+{% block title %} lista de respuesta {% endblock %}
+{% block content %}
+    <section id="services" class="section-padding" style="margin-top:80px">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Respuesta</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>
+                                Nombre de pregunta:  
+                                {% for pregunta in datos_preguntas  %}
+                                {{pregunta.nombre_pregunta}}
+                                {% endfor %}
+                                
+                            </td>
+                            <td>
+                                {% for pregunta in datos_preguntas  %}
+                                    {{pregunta.nombre_pregunta}}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for respuesta in respuestas%}
+                        <tr>
+                            <td>
+                                {{respuesta.nombre_respuesta}}
+                            </td>
+                            <td>
+                                {{respuesta.tipo_respuesta}}
+                            </td>
+                            <td>
+                                <a href="#">editar</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'eliminar_respuesta' pk=respuesta.id_respuesta %}">eliminar</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        no hay repuesta
+                        <a href="{% url 'preguntas' %}">volver</a>
+                    {% endfor %}
+                        <tr>
+                            <td>
+                                cargar nueva respuesta {{id_pregunta}}
+                                <a href="{% url 'registrar_respuesta' pk=id_pregunta %}">+</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>        
+        </div>        
+    </section>
+{% endblock %}

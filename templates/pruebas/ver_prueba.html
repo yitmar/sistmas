@@ -8,12 +8,13 @@
     <div class="container-fluid bg-info" style="margin-top:150px; margin-bottom:150px;">
         <form id="contact" method="post">
             {% csrf_token %}
+            {% for condi in prueba %}
+
             <div class="form-content">
                 <label>
-                    nombre participante:
+                    nombre participante:{{condi.id_participante}}
                 </label>
                 <div class="examen">
-                    {% for condi in prueba %}
                         {%for item in preguntaa%}                                
                             <div class="respuesta">
                                 <h4 id="nombrePregunta"> 
@@ -30,11 +31,11 @@
                                 {%endfor%}
                             </div>        
                         {%endfor%}
-                        <div class="text-muted">
-                            <fieldset>
-                                <input id="submit" type="submit" name="submit" value="finalizar" />  
-                            </fieldset>
-                        </div>
+                            <div class="text-muted">
+                                <fieldset>
+                                    <input id="submit" type="submit" name="submit" value="finalizar" />  
+                                </fieldset>
+                            </div>
                     {% endfor %}
                 </div>
             </div>

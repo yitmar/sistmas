@@ -8,8 +8,8 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="page-title text-center">
-                        <h2>CATEGORIAS</h2>
-                        <p>Eija la categoria para cargar la pregunta:</p>
+                        <h2>Crear Prueba</h2>
+                        <p>Eija la categoria para crear prueba:</p>
                     </div>
                 </div>
             </div>  
@@ -20,13 +20,13 @@
                         <p>{{ categoria.descripcion_categoria }}</p>
                         <div class="center">
                             <div class="col-md-3">
-                                <a href="{% url 'lista_pregunta' pk=categoria.id_categoria  tipo=3%}">avanzado</a>
+                                <a href="{% url 'listar_prueba' pk=categoria.id_categoria tipo=3 %}">avanzado</a>
                             </div>
                             <div class="col-md-3">
-                                <a href="{% url 'lista_pregunta' pk=categoria.id_categoria tipo=2%}">intermedio</a>
+                                <a href="{% url 'listar_prueba' pk=categoria.id_categoria tipo=2 %}">intermedio</a>
                             </div>
                             <div class="col-md-3">
-                                <a href="{% url 'lista_pregunta' pk=categoria.id_categoria tipo=1%}">basico</a>
+                                <a href="{% url 'listar_prueba' pk=categoria.id_categoria tipo=1 %}">basico</a>
                             </div>                        
                         </div>            
                     </div>

@@ -1,6 +1,6 @@
 {% extends "base.html"%}
 
-{% block title %} lista de preguntas {% endblock %}
+{% block title %} lista de prueba {% endblock %}
 {% block content %}
 
     <section id="services" class="section-padding" style="margin-top:80px">
@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="page-title text-center">
-                        <h2>Preguntas</h2>
+                        <h2>pruebas</h2>
                     </div>
                 </div>
             </div> 
@@ -17,34 +17,36 @@
                     <thead>
                         <tr>
                             <td>
-                                Lista de preguntas
+                                Lista de pruebas
                             </td>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for pregunta in preguntas%}
+                        {% for pru in prueba %}
                         <tr>
                             <td>
-                                {{pregunta.nombre_pregunta}}
+                                {{pru.nombre_prueba}}
                             </td>
                             <td>
-                                <a href="{% url 'buscar_repuesta' pk=pregunta.id_pregunta %}">ver respuesta</a> 
+                                <a href="{% url 'buscar_preguntas' pk=pru.id_prueba %}">ver preguntas</a> 
                             </td>
+
                             <td>
-                                <a href="#">editar</a>
-                            </td>
-                            <td>
-                                <a href="{% url 'eliminar_pregunta' pk=pregunta.id_pregunta %}">eliminar</a>
+                                <a href="{% url 'eliminar_pregunta' pk=1%}">eliminar</a>
                             </td>
                         </tr>
                         {% empty %}
-                            no hay preguntas
-                            <a href="{% url 'preguntas' %}">volver</a>
+                        <tr>
+                            <td class="center">
+                                no hay pruebas
+                                <a href="{% url 'pruebas' %}">volver</a>
+                            </td>
+                        </tr>
                         {% endfor %}
                         <tr>
                             <td>
-                                cargar nueva pregunta {{pk}} {{dificultad}}
-                                <a href="{% url 'registrar_pregunta' pk=pk tipo=dificultad %}">+</a>
+                                cargar nueva pregunta {{id_categoria}} {{id_dificultad}}
+                                <a href="{% url 'crear_prueba' pk=id_categoria tipo=id_dificultad %} ">+</a>
                             </td>
                         </tr>
                     </tbody>

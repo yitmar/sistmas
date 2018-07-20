@@ -9,17 +9,17 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div id="testimonial-list" class="carousel slide text-center" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
-                            {% for prueba in object_list %}
-                            <div class="item">
-                                <div class="">
-                                    <a href="{% url 'ver_prueba' pk=prueba.id_prueba %}">
-                                        <img class="author-photo" src="{{STATIC_URL}}/static/img/avater.png" alt="">
-                                    </a>
-                                    <p>tiene una prueba con de la unida de {{prueba.id_categoria}} </p>
-                                    <p>prueba numero: {{prueba.id_prueba}} </p>
-                                    <p class="author-name">{{prueba.id_participante}} <span>CEO, WP Expand{{prueba.id_prueba}}</span></p>
+                            {% for prue in pruebas %}
+                                <div class="item">
+                                    <div class="">
+                                        <a href="{% url 'ver_prueba' prueba=prue.id_prueba %}">
+                                            <img class="author-photo" src="{{STATIC_URL}}/static/img/avater.png" alt="">
+                                        </a>
+                                        <p>Tiene una prueba con de la unida de </p>
+                                        <p>Prueba numero: {{prue.id_prueba}} </p>
+                                        <p class="author-name">{{prue.id_participante}} <span>fecha tope de presentación </span></p>
+                                    </div>
                                 </div>
-                            </div>
                             {% empty %}
                             <li>no tiene prueba programada
                                 <br>

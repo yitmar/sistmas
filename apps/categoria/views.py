@@ -26,7 +26,7 @@ class nueva_categoria(CreateView):
     template_name='categoria/nueva_categoria.html'    
     model= categoria
     form_class=nueva_categoria_form
-    success_url=('/')
+    success_url=('/categoria')
     def model_valid(self, form):
         return super(nueva_categoria, self).form_valid(form)
     def model_invalid(self, form):

@@ -1,6 +1,6 @@
 {% extends "base.html"%}
 
-{% block title %} lista de preguntas {% endblock %}
+{% block title %} lista de pregunta {% endblock %}
 {% block content %}
 
     <section id="services" class="section-padding" style="margin-top:80px">
@@ -8,10 +8,10 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="page-title text-center">
-                        <h2>Preguntas</h2>
+                        <h2>pruebas</h2>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="row">
                 <table class="table table-bordered">
                     <thead>
@@ -27,29 +27,24 @@
                             <td>
                                 {{pregunta.nombre_pregunta}}
                             </td>
-                            <td>
-                                <a href="{% url 'buscar_repuesta' pk=pregunta.id_pregunta %}">ver respuesta</a> 
-                            </td>
-                            <td>
-                                <a href="#">editar</a>
-                            </td>
-                            <td>
-                                <a href="{% url 'eliminar_pregunta' pk=pregunta.id_pregunta %}">eliminar</a>
-                            </td>
                         </tr>
                         {% empty %}
                             no hay preguntas
-                            <a href="{% url 'preguntas' %}">volver</a>
+                            <a href="{% url 'pruebas' %}">volver</a>
                         {% endfor %}
                         <tr>
-                            <td>
-                                cargar nueva pregunta {{pk}} {{dificultad}}
-                                <a href="{% url 'registrar_pregunta' pk=pk tipo=dificultad %}">+</a>
-                            </td>
+                            <tr>
+                                <td>
+                                    <button >
+                                        volver
+                                    </button>
+                                </td>
+                            </tr>
                         </tr>
                     </tbody>
                 </table>
-            </div>        
+            </div>  
         </div>
     </section>
+
 {% endblock %}
