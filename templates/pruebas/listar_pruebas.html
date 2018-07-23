@@ -12,7 +12,7 @@
                             {% for prue in pruebas %}
                                 <div class="item">
                                     <div class="">
-                                        <a href="{% url 'ver_prueba' prueba=prue.id_prueba %}">
+                                        <a href="{% url 'ver_prueba' pk=prue.id_prueba_presona %}">
                                             <img class="author-photo" src="{{STATIC_URL}}/static/img/avater.png" alt="">
                                         </a>
                                         <p>Tiene una prueba con de la unida de </p>

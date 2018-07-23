@@ -8,37 +8,41 @@
     <div class="container-fluid bg-info" style="margin-top:150px; margin-bottom:150px;">
         <form id="contact" method="post">
             {% csrf_token %}
-            {% for condi in prueba %}
-
-            <div class="form-content">
-                <label>
-                    nombre participante:{{condi.id_participante}}
-                </label>
-                <div class="examen">
-                        {%for item in preguntaa%}                                
-                            <div class="respuesta">
-                                <h4 id="nombrePregunta"> 
-                                    <span class="label label-warning" id="pregunta">{{condi.cantidad_pregunta}}</span>
-                                    {{item.nombre_pregunta}}
-                                </h4>
-                            </div>   
-                            <div class="respuesta" id="respuesta">
-                                {%for respuesta in respuestas %}
-                                    <label>
-                                        <input type="radio" name="respuesta" value="{{respuesta.id_respuesta}}" class="respuesta">
-                                        {{respuesta.nombre_respuesta}}
-                                    </label>
-                                {%endfor%}
-                            </div>        
-                        {%endfor%}
-                            <div class="text-muted">
-                                <fieldset>
-                                    <input id="submit" type="submit" name="submit" value="finalizar" />  
-                                </fieldset>
-                            </div>
-                    {% endfor %}
-                </div>
-            </div>
+            {% for condi in pruebs_presona %}
+                <div class="form-content">
+                    <label>
+                        nombre participante:{{condi.id_participante}}
+                    </label>
+                    <div class="examen">
+                        {% for pregunta in arreglo_pregunta %}
+                            {% for pregunt in pregunta %}
+                                <div class="respuesta">
+                                    <h4 id="nombrePregunta"> 
+                                        <span class="label label-warning" id="pregunta">
+                                        {{pregunt.id_pregunta}}</span>
+                                        {{pregunt.nombre_pregunta}}      
+                                    </h4>
+                                </div>
+                                <div class="respuesta" id="respuesta">
+                                    {% for respuesta in arreglo_respuesta %}
+                                        {%for res in respuesta %}
+                                            <label>
+                                                <input type="radio" name="{{pregunt.id_pregunta}}" value="{{res.id_respuesta}}" class="respuesta">
+                                                {{res.nombre_respuesta}}
+                                            </label>
+                                        {%endfor%}
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}    
+                        <div class="text-muted">
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="finalizar" />  
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>            
+            {% endfor %}
         </form> 
     </div>
 {%endblock%}
