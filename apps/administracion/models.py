@@ -24,9 +24,14 @@ class administrador(AbstractBaseUser,PermissionsMixin):
     nombre_admin= models.CharField(max_length=50)
     apellidos_admin= models.CharField(max_length=50)
     p00=models.IntegerField(unique=True)
+
     is_active= models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
+    
     USERNAME_FIELD='p00'
+    REQUIRED_FIELD=['p00','password']
+
     objects= usermanager()
+
     def get_short_name(self):
         return self.nombre_admin

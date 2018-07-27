@@ -11,6 +11,7 @@ class resultado(models.Model):
     arreglo_preguntas=ArrayField(models.IntegerField(),blank=True)
     arreglo_respuesta=ArrayField(models.IntegerField(),blank=True)
     nota_evaluacion=models.IntegerField()
+    fecha_presentacion=models.DateField(auto_now=True)
     
     def __str__(self):
         return self.id_resultado

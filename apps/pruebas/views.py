@@ -66,9 +66,22 @@ def vista_crear_prueba(request,pk,tipo):
             print("invalido")
             pass
     elif request.method == 'GET':
+        arreglo_preguntas=[]
         preguntas=pregunta.objects.filter(id_categoria=pk,dificultad=tipo)
+        for pre in preguntas:
+            id_pregunta=pre.id_pregunta
+
+            respuestas=respuesta.objects.filter(id_pregunta=id_pregunta).order_by("tipo_respuesta")
+            cantidad_respuest=len(respuestas)
+            if cantidad_respuest >0:
+                for res in respuestas:
+                    if res.tipo_respuesta:
+                        pregunta_valida=pregunta.objects.get(id_pregunta=id_pregunta)
+                        arreglo_preguntas.append(pregunta_valida)
+        print(arreglo_preguntas)
+        form=formulario_crear_prueba 
         form=formulario_crear_prueba    
-        return render(request,'pruebas/crear_pruebas.html',{'form':form,'preguntas':preguntas})
+        return render(request,'pruebas/crear_pruebas.html',{'form':form,'arreglo_preguntas':arreglo_preguntas})
     else:
         print("otros")
         form=formulario_crear_prueba        
@@ -97,6 +110,7 @@ class lista_prueba(ListView):
 
 def vista_ver_pruebas_asignadas(request):
     valor=1
+
     participantes=valor
     pruebas=prueba_presona.objects.filter(id_participante=participantes)
     lista_prueba=[]
@@ -107,18 +121,20 @@ def vista_ver_pruebas_asignadas(request):
 
 def datos(request,pk):
     pruebs_presona=prueba_presona.objects.filter(id_prueba_presona=pk)
-    arreglo_respuesta=[]
-    durancion_pruaba=0
+
+#   datos para la evaluacion
     cantidad_pregunta=0
-    arreglo_pruebas=[]
-    arreglo_valor_respuesta=[]
-    arreglo_pregunta_respuesta=[]
     id_categoria=0
     id_participante=0
+    arreglo_valor=[]
+#    arreglo_preguntas=[]
+#   datos para la prueba
+    durancion_pruaba=0
+    arreglos_prueba=[]
+
+    arreglo_pruebas=[]
     arreglo_pregunta=[]
     arreglo_preguntas=[]
-
-    prueba_presentar=[]
 
     for item in pruebs_presona:
         id_participante=item.id_participante
@@ -131,58 +147,111 @@ def datos(request,pk):
             arreglo_preguntas=prue.arreglo_preguntas
             arreglo_valor=prue.arreglo_valor
             id_categoria=prue.id_categoria
-        q=0
-        arreglo_pregun=len(arreglo_preguntas)-1
-
-        while q < cantidad_pregunta:
-            numero_pregunta_rando=randint(0,arreglo_pregun)
-            id_pregunta=arreglo_preguntas[numero_pregunta_rando]
-            
-            nuemro_pregunta=q+1
-            prueba_presentar.append(nuemro_pregunta)
-
-            arreglo_valor_respuesta.append(arreglo_valor[numero_pregunta_rando])
-            arreglo_pregunta_respuesta.append(id_pregunta)
-
-            preguntaa=pregunta.objects.filter(id_pregunta=id_pregunta)
-            arreglo_pregunta.append(preguntaa)
-            for pregun in preguntaa:
-                id_pregunta=pregun.id_pregunta
-                nombre_pregunta=pregun.nombre_pregunta
-                prueba_presentar.append(nombre_pregunta)
-
-            respuestas=respuesta.objects.filter(id_pregunta=id_pregunta)
-            arreglo_respuesta.append(respuestas)
-            print(len(respuestas))
-            for res in respuestas:
-                id_respuesta=res.id_respuesta
-                nombre_respuesta=res.nombre_respuesta
-                prueba_presentar.append(id_respuesta)
-                prueba_presentar.append(nombre_respuesta)                
-
-            q=1+q
+        
+        
+        rango_pregunta=len(arreglo_preguntas)-1
 
     if request.method == 'POST':
         a=0
         nota_evaluacion=0
         nota=0
         arreglo_respuesta=[]
+        numero_pregunta=1
+        valor_post=len(request.POST)-2
         print(request.POST)
+        print(valor_post)
         while a < cantidad_pregunta:
-            pregunta_id=arreglo_pregunta_respuesta[a]
-            print(pregunta_id)
-            respuesta_pregunta=request.POST
-            arreglo_respuesta.append(respuesta_pregunta)
-            nota_evaluacion=nota+nota_evaluacion  
+            carater_pregunta=str(numero_pregunta)
+            try:
+                respuesta_pregunta=request.POST[carater_pregunta]
+                arreglo_respuesta.append(respuesta_pregunta)
+                datos_respuesta=respuesta.objects.filter(id_respuesta=respuesta_pregunta)
+                for res in datos_respuesta:
+                    id_pregunta=res.id_pregunta
+                    tipo_respuesta=res.tipo_respuesta
+                    arreglo_pregunta.append(id_pregunta)
+                    print(arreglo_pregunta)
+                    if tipo_respuesta:
+                        print("correcta")
+                        condi=0
+                        while condi < rango_pregunta:
+                            print("pri")
+                            for pre in arreglo_preguntas:
+                                print (pre)
+                                print (id_pregunta)
+                                if pre==id_pregunta:
+                                    print("valido")
+                            condi=1+condi
+                else:
+                    print("incorreco")
+                    nota=0
+            except KeyError:
+                print("not")
+                nota=0
+            nota_evaluacion=nota+nota_evaluacion
+            numero_pregunta=numero_pregunta+1
             a=a+1
-        nueva_resultado=resultado(id_participante=id_participante,id_categoria=id_categoria,arreglo_preguntas=arreglo_pregunta_respuesta,arreglo_respuesta=arreglo_respuesta,nota_evaluacion=nota_evaluacion)
+        print (id_participante)
+        print (id_categoria)
+        print (arreglo_pregunta)
+        print (nota_evaluacion)
+        print (arreglo_respuesta)    
+        nueva_resultado=resultado(id_participante=id_participante,
+                                id_categoria=id_categoria,
+                                arreglo_preguntas=arreglo_pregunta,
+                                arreglo_respuesta=arreglo_respuesta,
+                                nota_evaluacion=nota_evaluacion)
         #nueva_resultado.save()
         #send_email(request)
         return redirect('/')
     else:
-        print(prueba_presentar)
+        q=0
+        arreglos_rando_numeros=[]
+
+        while q < cantidad_pregunta:
+            numero_pregunta_rando=randint(0,rango_pregunta)
+            print(len(arreglos_rando_numeros))
+            x=0
+            while x < len(arreglos_rando_numeros)+1:
+                print(x)
+                if len(arreglos_rando_numeros)==0:
+                    print ("cero")
+                    arreglo_contenido_pregunta=[]
+                    arreglos_rando_numeros.append(numero_pregunta_rando)
+                    id_pregunta=arreglo_preguntas[numero_pregunta_rando]
+
+                    numero_prueba=q+1
+                    arreglo_contenido_pregunta.append(numero_prueba)
+
+                    datos_pregunta=pregunta.objects.filter(id_pregunta=id_pregunta)
+                    arreglo_contenido_pregunta.append(datos_pregunta)
+
+                    datos_respuesta=respuesta.objects.filter(id_pregunta=id_pregunta)
+                    arreglo_contenido_pregunta.append(datos_respuesta)
+                    arreglos_prueba.append(arreglo_contenido_pregunta)
+                    q=numero_prueba
+                    
+
+                if numero_pregunta_rando == arreglos_rando_numeros[x]:
+                    x=x+1
+                else:
+                    arreglo_contenido_pregunta=[]
+                    arreglos_rando_numeros.append(numero_pregunta_rando)
+                    id_pregunta=arreglo_preguntas[numero_pregunta_rando]
+
+                    numero_prueba=q+1
+                    arreglo_contenido_pregunta.append(numero_prueba)
+
+                    datos_pregunta=pregunta.objects.filter(id_pregunta=id_pregunta)
+                    arreglo_contenido_pregunta.append(datos_pregunta)
+
+                    datos_respuesta=respuesta.objects.filter(id_pregunta=id_pregunta)
+                    arreglo_contenido_pregunta.append(datos_respuesta)
+                    arreglos_prueba.append(arreglo_contenido_pregunta)
+                    q=numero_prueba
+                    break
         return render(request, 'pruebas/ver_prueba.html',
-        {'arreglo_pregunta':arreglo_pregunta,'arreglo_respuesta':arreglo_respuesta,'pruebs_presona':pruebs_presona,'arreglo_pruebas':arreglo_pruebas,'prueba_presentar':prueba_presentar },)
+        {'arreglos_prueba':arreglos_prueba,'pruebs_presona':pruebs_presona },)
 
 def send_email(request):
     msg=EmailMessage(subject="prueba",from_email="yitmar.14151819@gmail.com",to=['yitmar.14151819@hotmail.com'])

@@ -15,7 +15,8 @@ class registro(CreateView):
         super(registro, self).form_valid(form)
         return redirect(r'')
     def model_invalid(self, form):
-        return super(registro, self).form_invalid(form)   
+        return super(registro, self).form_invalid(form)
+     
 """
 def registro(request):
     form=participante_form(request.POST)

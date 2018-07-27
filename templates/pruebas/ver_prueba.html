@@ -14,26 +14,28 @@
                         nombre participante:{{condi.id_participante}}
                     </label>
                     <div class="examen">
-                        {% for pregunta in arreglo_pregunta %}
-                            {% for pregunt in pregunta %}
-                                <div class="respuesta">
-                                    <h4 id="nombrePregunta"> 
-                                        <span class="label label-warning" id="pregunta">
-                                        {{pregunt.id_pregunta}}</span>
-                                        {{pregunt.nombre_pregunta}}      
-                                    </h4>
-                                </div>
-                                <div class="respuesta" id="respuesta">
-                                    {% for respuesta in arreglo_respuesta %}
-                                        {%for res in respuesta %}
-                                            <label>
-                                                <input type="radio" name="{{pregunt.id_pregunta}}" value="{{res.id_respuesta}}" class="respuesta">
-                                                {{res.nombre_respuesta}}
-                                            </label>
-                                        {%endfor%}
+                        {% for prueba in arreglos_prueba %}
+                            <div class="respuesta">
+                                <h4 id="nombrePregunta"> 
+                                    <span class="label label-warning" id="pregunta">
+                                        {{prueba.0}}
+                                    </span>
+                                    {% for pregunta in prueba.1 %}
+                                        {{pregunta.nombre_pregunta}}
                                     {% endfor %}
-                                </div>
-                            {% endfor %}
+                                </h4>
+                            </div>
+                            <div class="respuesta" id="respuesta">
+                                {% for respuesta in prueba.2 %}
+                                <label>
+                                    <input type="radio" name="{{prueba.0}}" value="{{respuesta.id_respuesta}}" class="respuesta">
+                                    {{respuesta.nombre_respuesta}}
+                                </label>
+                                {% empty %}
+                                
+                                {% endfor %}
+                            </div>
+                            <BR></BR>
                         {% endfor %}    
                         <div class="text-muted">
                             <fieldset>

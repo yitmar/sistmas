@@ -21,7 +21,7 @@
                         {% csrf_token %}
                         {{form.as_p}}
                         <label for="">preguntas:</label>
-                            {% for pregunta in preguntas %}
+                            {% for pregunta in arreglo_preguntas %}
                             <table>
                                 <tr>
                                     <td>
