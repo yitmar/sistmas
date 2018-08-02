@@ -13,7 +13,7 @@ class registro(CreateView):
     success_url=('/')
     def model_valid(self, form):
         super(registro, self).form_valid(form)
-        return redirect(r'')
+        return redirect(r'users')
     def model_invalid(self, form):
         return super(registro, self).form_invalid(form)
      

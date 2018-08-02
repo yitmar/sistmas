@@ -1,21 +1,23 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, CreateView, DetailView
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMessage
 from random import randint
 
 from apps.categoria.models import categoria as Categoria
 from apps.preguntas.models import pregunta, respuesta, dificultad
-from apps.users.models import participante
 from apps.resultados.models import resultado
 
 from .models import prueba as Prueba, prueba_presona
 from .forms import formulario_crear_prueba, formulario_asignar_prueba, formulario_realizar_prueba
  
 # Create your views here.
-#@login_required(login_url= '/')
 
-class inicio(ListView):
+class inicio(LoginRequiredMixin, ListView):
+    login_url='/'
+    redirect_field_name = 'redirect'
     template_name=('pruebas/lista_categoria.html')
     model=Categoria
     queryset=Categoria.objects.all()
@@ -24,6 +26,7 @@ class inicio(ListView):
         context['total_questions']= Categoria.objects.count()
         return context
 
+@login_required(login_url= '/')
 def vista_listar_pruebas(request, pk, tipo):
     id_categoria=pk
     id_dificultad=tipo
@@ -31,6 +34,7 @@ def vista_listar_pruebas(request, pk, tipo):
     print(prueba)
     return render(request,'pruebas/listas_crear_preguntas.html',{'prueba':prueba,'id_categoria':id_categoria,'id_dificultad':id_dificultad})
 
+@login_required(login_url= '/')
 def vista_buscar_preguntas(request, pk):
     id_prueba=pk
     prueba=Prueba.objects.filter(id_prueba=id_prueba)
@@ -47,6 +51,7 @@ def vista_buscar_preguntas(request, pk):
         x+=1
     return render(request,'pruebas/lista_preguntas.html',{'preguntas':preguntas})
 
+@login_required(login_url= '/')
 def vista_crear_prueba(request,pk,tipo):
     id_categoria=pk
     id_dificultad=tipo
@@ -87,10 +92,13 @@ def vista_crear_prueba(request,pk,tipo):
         form=formulario_crear_prueba        
         return render(request,'pruebas/crear_pruebas.html',{'form':form})
 
+@login_required(login_url= '/')
 def vista_eliminar_pregunta(request, pk):
     pass
 
-class asignar_prueba(CreateView):  
+class asignar_prueba(LoginRequiredMixin,CreateView):  
+    login_url='/'
+    redirect_field_name = 'redirect'
     template_name=('pruebas/asignar_prueba.html')
     model=Prueba
     form_class=formulario_asignar_prueba
@@ -100,7 +108,9 @@ class asignar_prueba(CreateView):
     def model_invalid(self, form):
         return super(asignar_prueba, self).form_invalid(form)
 
-class lista_prueba(ListView):
+class lista_prueba(LoginRequiredMixin, ListView):
+    login_url='/'
+    redirect_field_name = 'redirect'
     template_name=('pruebas/listar_pruebas.html')
     model=Categoria
     queryset=Prueba.objects.all()
@@ -108,9 +118,9 @@ class lista_prueba(ListView):
         context= super(lista_prueba, self).get_context_data(**kwargs)
         return context
 
+@login_required(login_url= '/')
 def vista_ver_pruebas_asignadas(request):
     valor=1
-
     participantes=valor
     pruebas=prueba_presona.objects.filter(id_participante=participantes)
     lista_prueba=[]
@@ -119,6 +129,7 @@ def vista_ver_pruebas_asignadas(request):
         lista_prueba.append(id_prueba)
     return render(request,'pruebas/listar_pruebas.html',{'pruebas':pruebas,'lista_prueba':lista_prueba})
 
+@login_required(login_url= '/')
 def datos(request,pk):
     pruebs_presona=prueba_presona.objects.filter(id_prueba_presona=pk)
 
@@ -148,7 +159,6 @@ def datos(request,pk):
             arreglo_valor=prue.arreglo_valor
             id_categoria=prue.id_categoria
         
-        
         rango_pregunta=len(arreglo_preguntas)-1
 
     if request.method == 'POST':
@@ -157,9 +167,6 @@ def datos(request,pk):
         nota=0
         arreglo_respuesta=[]
         numero_pregunta=1
-        valor_post=len(request.POST)-2
-        print(request.POST)
-        print(valor_post)
         while a < cantidad_pregunta:
             carater_pregunta=str(numero_pregunta)
             try:
@@ -169,19 +176,25 @@ def datos(request,pk):
                 for res in datos_respuesta:
                     id_pregunta=res.id_pregunta
                     tipo_respuesta=res.tipo_respuesta
-                    arreglo_pregunta.append(id_pregunta)
-                    print(arreglo_pregunta)
-                    if tipo_respuesta:
-                        print("correcta")
-                        condi=0
-                        while condi < rango_pregunta:
-                            print("pri")
-                            for pre in arreglo_preguntas:
-                                print (pre)
-                                print (id_pregunta)
-                                if pre==id_pregunta:
-                                    print("valido")
-                            condi=1+condi
+                arreglo_pregunta.append(id_pregunta)
+               
+                if tipo_respuesta:
+                    print("correcta")
+                    condi=0
+                    while condi < rango_pregunta:
+                        print("pri")
+                        for pre in arreglo_preguntas:
+                            print (pre)
+                            print (id_pregunta)
+                            datos_pregunta=pregunta.objects.filter(nombre_pregunta=id_pregunta)
+                            for pregun in datos_pregunta:
+                                nombre_pregunta=pregun.nombre_pregunta
+                            print(nombre_pregunta)
+                        if nombre_pregunta==str(id_pregunta):
+                            print("valido")
+                            nota=arreglo_valor[condi]
+                            condi=rango_pregunta+1
+                        condi=1+condi
                 else:
                     print("incorreco")
                     nota=0
@@ -201,7 +214,7 @@ def datos(request,pk):
                                 arreglo_preguntas=arreglo_pregunta,
                                 arreglo_respuesta=arreglo_respuesta,
                                 nota_evaluacion=nota_evaluacion)
-        #nueva_resultado.save()
+        nueva_resultado.save()
         #send_email(request)
         return redirect('/')
     else:
@@ -210,28 +223,25 @@ def datos(request,pk):
 
         while q < cantidad_pregunta:
             numero_pregunta_rando=randint(0,rango_pregunta)
-            print(len(arreglos_rando_numeros))
             x=0
-            while x < len(arreglos_rando_numeros)+1:
-                print(x)
-                if len(arreglos_rando_numeros)==0:
-                    print ("cero")
-                    arreglo_contenido_pregunta=[]
-                    arreglos_rando_numeros.append(numero_pregunta_rando)
-                    id_pregunta=arreglo_preguntas[numero_pregunta_rando]
 
-                    numero_prueba=q+1
-                    arreglo_contenido_pregunta.append(numero_prueba)
+            if len(arreglos_rando_numeros)==0:
+                arreglo_contenido_pregunta=[]
+                arreglos_rando_numeros.append(numero_pregunta_rando)
+                id_pregunta=arreglo_preguntas[numero_pregunta_rando]
 
-                    datos_pregunta=pregunta.objects.filter(id_pregunta=id_pregunta)
-                    arreglo_contenido_pregunta.append(datos_pregunta)
+                numero_prueba=q+1
+                arreglo_contenido_pregunta.append(numero_prueba)
 
-                    datos_respuesta=respuesta.objects.filter(id_pregunta=id_pregunta)
-                    arreglo_contenido_pregunta.append(datos_respuesta)
-                    arreglos_prueba.append(arreglo_contenido_pregunta)
-                    q=numero_prueba
-                    
+                datos_pregunta=pregunta.objects.filter(id_pregunta=id_pregunta)
+                arreglo_contenido_pregunta.append(datos_pregunta)
 
+                datos_respuesta=respuesta.objects.filter(id_pregunta=id_pregunta)
+                arreglo_contenido_pregunta.append(datos_respuesta)
+                arreglos_prueba.append(arreglo_contenido_pregunta)
+                q=numero_prueba
+
+            while x < len(arreglos_rando_numeros):
                 if numero_pregunta_rando == arreglos_rando_numeros[x]:
                     x=x+1
                 else:
@@ -250,9 +260,11 @@ def datos(request,pk):
                     arreglos_prueba.append(arreglo_contenido_pregunta)
                     q=numero_prueba
                     break
+
         return render(request, 'pruebas/ver_prueba.html',
         {'arreglos_prueba':arreglos_prueba,'pruebs_presona':pruebs_presona },)
 
+@login_required(login_url= '/')
 def send_email(request):
     msg=EmailMessage(subject="prueba",from_email="yitmar.14151819@gmail.com",to=['yitmar.14151819@hotmail.com'])
     msg.template_name='pantilla de prueba'

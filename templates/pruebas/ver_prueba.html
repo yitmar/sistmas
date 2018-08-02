@@ -25,17 +25,17 @@
                                     {% endfor %}
                                 </h4>
                             </div>
-                            <div class="respuesta" id="respuesta">
+                            <div class="btn-group btn-group-toggle respuesta" data-toggle="buttons">
                                 {% for respuesta in prueba.2 %}
-                                <label>
-                                    <input type="radio" name="{{prueba.0}}" value="{{respuesta.id_respuesta}}" class="respuesta">
-                                    {{respuesta.nombre_respuesta}}
-                                </label>
+                                    <label class="btn btn-success active">
+                                        <input type="radio" name="{{prueba.0}}" value="{{respuesta.id_respuesta}}" id="option1" autocomplete="off" checked> {{respuesta.nombre_respuesta}}
+                                    </label>
                                 {% empty %}
-                                
+                                    no hay pregunta llamar error de sistema
                                 {% endfor %}
                             </div>
-                            <BR></BR>
+                            <br>
+                            <br>
                         {% endfor %}    
                         <div class="text-muted">
                             <fieldset>
@@ -43,8 +43,10 @@
                             </fieldset>
                         </div>
                     </div>
-                </div>            
+                </div>
+
             {% endfor %}
         </form> 
     </div>
 {%endblock%}
+

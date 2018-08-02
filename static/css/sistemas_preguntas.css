@@ -62,3 +62,12 @@
 .logo_categoria{
   max-width: 70%;
 }
+
+.caja{
+  border: 10px solid #3EC483;
+  background: #5DEAA8;
+  height: 100px;
+  width: 200px;
+  padding: 10px;
+  margin: 10px;
+}

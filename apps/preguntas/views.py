@@ -1,13 +1,18 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View, ListView, CreateView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from apps.categoria.models import categoria as Categoria
+
 from .models import pregunta, respuesta
 from .froms import preguntas_form, respuesta_from
 
+
 # Create your views here.
-#@login_required(login_url= '/')
-class lista_categorias(ListView):
+class lista_categorias(LoginRequiredMixin, ListView):
+    login_url='/'
+    redirect_field_name = 'redirect'
     template_name=('preguntas/index.html')
     model=Categoria
     queryset=Categoria.objects.all()
@@ -16,7 +21,9 @@ class lista_categorias(ListView):
         context['total_questions']= Categoria.objects.count()
         return context
 
-class crear_preguntas(CreateView):
+class crear_preguntas(LoginRequiredMixin, CreateView):
+    login_url='/'
+    redirect_field_name = 'redirect'
     template_name='preguntas/registro.html'    
     model= pregunta
     form_class=preguntas_form
@@ -26,6 +33,7 @@ class crear_preguntas(CreateView):
     def model_invalid(self, form):
         return super(crear_preguntas, self).form_invalid(form)
 
+@login_required(login_url= '/')
 def vista_crear_preguntas(request, pk, tipo):
     if request.method == 'POST':
 
@@ -41,12 +49,14 @@ def vista_crear_preguntas(request, pk, tipo):
     form=preguntas_form
     return render(request,'preguntas/registro.html',{'form':form})
 
+@login_required(login_url= '/')
 def vista_lista_preguntas(request, pk, tipo):
     dificultad=tipo
     print(tipo)
     preguntas=pregunta.objects.filter(id_categoria=pk, dificultad=dificultad)
     return render(request,'preguntas/listas_preguntas.html',{'preguntas':preguntas,'dificultad':dificultad,'pk':pk})
 
+@login_required(login_url= '/')
 def vista_eliminar_pregunta(request, pk):
     Pregunta=pregunta.objects.filter(id_pregunta=pk)
     if request.method == 'POST':
@@ -54,6 +64,7 @@ def vista_eliminar_pregunta(request, pk):
         return redirect('/preguntas')
     return render(request, 'preguntas/eliminar_pregunta.html',{'Pregunta':Pregunta})
 
+@login_required(login_url= '/')
 def vista_crear_respuesta(request,pk):
     if request.method =='POST':
         print(request.POST)
@@ -71,13 +82,14 @@ def vista_crear_respuesta(request,pk):
     form=respuesta_from    
     return render(request,'preguntas/registro_respuesta.html',{'form':form,'datos_preguntas':datos_preguntas})
 
-
+@login_required(login_url= '/')
 def vista_buscar_repuesta(request, pk):
     id_pregunta=pk
     respuestas=respuesta.objects.filter(id_pregunta=id_pregunta)
     datos_preguntas=pregunta.objects.filter(id_pregunta=id_pregunta)
     return render(request, 'preguntas/ver_respuesta.html', {'respuestas':respuestas,'datos_preguntas':datos_preguntas,'id_pregunta':id_pregunta})
 
+@login_required(login_url= '/')
 def vista_eliminar_repuesta(request, pk):
     print(pk)
     Respuestas=respuesta.objects.filter(id_respuesta=pk)

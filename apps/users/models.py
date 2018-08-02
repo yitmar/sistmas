@@ -35,8 +35,7 @@ class participante(models.Model):
             )
         ])
     fecha_participacion=models.DateField(auto_now=True)
+    is_participante=models.ForeignKey('administracion.administrador', on_delete=models.CASCADE, default=True)
 
     def __str__(self):
         return '{} {}'.format(self.nombres_participante, self.apellidos_participante)
-
-
