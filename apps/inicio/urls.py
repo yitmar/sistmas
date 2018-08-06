@@ -8,8 +8,11 @@ Class-based views
   
 """
 from django.urls import include, path
-from .views import inicio
+from .views import inicio, vista_login, vista_registro_participante, vista_registro_instructor
+
 
 urlpatterns=[
-    path('', inicio.as_view(),name='inicio'),
+    path('', vista_login ,name='inicio'),
+    path('registro_instructor/', vista_registro_instructor.as_view(), name='registro_instructor'),
+    path('registro_participante/', vista_registro_participante.as_view(), name='registro_participante'),
 ]

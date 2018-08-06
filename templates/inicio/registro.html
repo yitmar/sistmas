@@ -1,0 +1,36 @@
+{% extends "base.html"%}
+
+{% block title %} registro de Participante{% endblock  %}
+{% block script %}  {% endblock  %}
+
+{% block content%}
+    <section id="contact-us" class="section-padding" style="margin-top:100px;">
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Registro De Participante</h2>
+                    </div>
+                </div>
+            </div>                                 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>Registro:</h2>
+                        <form id="contact" name="contact" method="post">
+                            {% csrf_token %}
+                            <fieldset class="clean">
+                                {{form.as_p}}
+                            </fieldset>
+                           
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="guardar" />  
+                            </fieldset>
+                        </form>	
+                    </div>                     
+                </div>
+            </div>
+        </div>
+    </section> <!-- End contact us -->
+    
+{% endblock %}

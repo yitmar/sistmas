@@ -1,7 +1,6 @@
 from django import forms
 from apps.preguntas.models import dificultad, pregunta
 from apps.categoria.models import categoria
-from apps.administracion.models import administrador
 from apps.resultados.models import resultado
 from .models import prueba, prueba_presona
 

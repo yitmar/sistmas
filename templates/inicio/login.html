@@ -1,0 +1,35 @@
+{% extends "base.html"%}
+
+{% block title %} sistemas de pruebas {%endblock  %}
+{% block content%}
+    <section id="slider">
+        <div data-velocity="-.2" class="overlay-bg slide-bg"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="slide-text-wrapper">
+                        <div class="slide-text text-center">
+                            <h1 class="typewrite" data-period="2000" data-type='[ "BIENVENIDO PARTICIPANTE", "HAS TU REGISTRO FACIL", "Y CONTINUA LAS INTRUCCIONES", "Y SUERTE" ]'>
+                                <span class="wrap"></span>
+                            </h1> 
+                            {% if message %}
+                                {{message}}
+                            {% else %}
+                                {{message}}
+                            {% endif %}
+                            <form id="contact" name="contact" method="post">
+                                {% csrf_token %}
+                                {{form.as_p}}
+                                <fieldset>
+                                    <input id="submit" type="submit" name="submit" value="entrar" />  
+                                </fieldset>
+                            </form>
+                            <a href="{% url 'registro_participante' %}" class="learn-more">registrarse como participante</a> 
+                            <a href="{% url 'registro_instructor' %}" class="learn-more">registrarse como instructor</a>                     
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- End slider -->
+{% endblock %}

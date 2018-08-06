@@ -3,6 +3,7 @@ from django.views.generic import View, ListView, CreateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from apps.inicio.decorador import instructor_required
 
 from .models import categoria
 from .forms import nueva_categoria_form
@@ -41,7 +42,7 @@ class nueva_categoria( LoginRequiredMixin, CreateView):
     def model_invalid(self, form):
         return super(nueva_categoria, self).form_invalid(form)
 
-@login_required(login_url= '/')
+@instructor_required(login_url= '/')
 def vista_eliminar_categoria(request,pk):
     Categoria=categoria.objects.filter(id_categoria=pk)
     if request.method == 'POST':

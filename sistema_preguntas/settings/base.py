@@ -1,4 +1,6 @@
 import os 
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 #from unipath import Path
@@ -29,7 +31,6 @@ THIRD_PARTY_APPS=(
 )
 
 LOCAL_APPS=(
-    'apps.administracion',
     'apps.auditoria',
     'apps.categoria',
     'apps.inicio',
@@ -67,7 +68,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-           
             ],
         },
     },
@@ -88,6 +88,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL= 'administracion.administrador'
+AUTH_USER_MODEL= 'inicio.user'
+
 
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend" 
