@@ -6,7 +6,7 @@ from .base import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'prueba_de_sistemas_django',
+        'NAME': 'sistemas_prueba',
         'USER': 'prueba_django',
         'PASSWORD':'123456',
         'HOST': 'localhost',
@@ -45,4 +45,10 @@ STATICFILES_DIRS = [
 
 #STATICFILES_DIRS=[BASE_DIR.child('static')]
 
-MANDRILL_API_KEY='WalmP9hPRFI4qi6e5Wo93w'
+
+EMAIL_USE_TLS= True
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER='yitmar.14151819@gmail.com'
+EMAIL_HOST_PASSWORD='nion1415'
+EMAIL_BACKEND= 'django.core.mail.backends.smtp.EmailBackend'

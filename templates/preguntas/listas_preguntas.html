@@ -31,15 +31,19 @@
                                 <a href="{% url 'buscar_repuesta' pk=pregunta.id_pregunta %}">ver respuesta</a> 
                             </td>
                             <td>
-                                <a href="#">editar</a>
+                                <a href="{% url 'editar_pregunta' pk=pregunta.id_pregunta %}">editar</a>
                             </td>
                             <td>
                                 <a href="{% url 'eliminar_pregunta' pk=pregunta.id_pregunta %}">eliminar</a>
                             </td>
                         </tr>
                         {% empty %}
-                            no hay preguntas
-                            <a href="{% url 'preguntas' %}">volver</a>
+                        <tr>
+                            <td class="center">
+                                no hay preguntas
+                                <a href="{% url 'preguntas' %}">volver</a>
+                            </td>
+                        </tr>    
                         {% endfor %}
                         <tr>
                             <td>

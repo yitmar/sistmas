@@ -27,7 +27,7 @@ class dificultad(models.Model):
                 message='solo se acepta solo numero'
             )
         ])
-
+   
     def __str__(self):
         return '{}'.format(self.nombre_dificultad) 
 
@@ -39,6 +39,7 @@ class tipo_pregunta(models.Model):
                 message='solo se acepta solo numero'
             )
         ])
+    
     def __str__(self):
         return '{}'.format(self.nombre_tipo_pregunta) 
 
@@ -55,3 +56,4 @@ class respuesta(models.Model):
 
     def __str__(self):
         return '{}'.format(self.nombre_respuesta)
+

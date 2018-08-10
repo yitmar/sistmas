@@ -6,14 +6,14 @@ class categoria(models.Model):
     id_categoria=models.AutoField(primary_key=True)
     nombre_categoria=models.CharField(max_length=50, unique=True,validators=[
             RegexValidator(
-                regex='^[a-zA-z\s]*$',
-                message=' '
+                regex='^[a-zA-z0-9\s]*$',
+                message='no acepta caracteres especiales '
             )
         ])
     descripcion_categoria= models.CharField(max_length=100,default="",validators=[
             RegexValidator(
                 regex='^[a-zA-z\s]*$',
-                message=' '
+                message='solo acepta letras'
             )
         ])
     def __str__(self):

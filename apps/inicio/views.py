@@ -1,8 +1,11 @@
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, render_to_response, redirect, get_list_or_404
 from django.views.generic import View
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.views.generic import CreateView
-from django.contrib.auth.views import login, LogoutView
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.views.defaults import page_not_found
+from django.http import Http404, HttpResponseNotFound  
 
 from .models import user as User
 
@@ -10,10 +13,6 @@ from .forms import forms_login, formulario_registero_particpante, formilario_reg
 
 # Create your views here.
 #@login_required(login_url= '/')
-
-class inicio(View):
-    def get(self, request, *args, **kwargs):
-        return render(request,'inicio/index.html')
 
 class vista_registro_participante(CreateView):
     model = User
@@ -43,6 +42,19 @@ class vista_registro_instructor(CreateView):
         login(self.request, user)
         return redirect('lista_prueba')
 
+@login_required(login_url= '/')
+def vista_inicio(request):
+    message=None
+    cedula=request.user.cedula_usuario
+    datos_user=User.objects.filter(cedula_usuario=cedula)
+    if request.user.is_participante:
+        message="bienvenido particpante"
+    elif request.user.is_instructor:
+        message="bienvenido instructor"        
+    else:
+        message="eres administrardor no puedes hacer entrer al sistema "
+    return render(request,'inicio/index.html', {'message':message, 'datos_user':datos_user})
+
 def vista_login(request):
     message= None
     if request.method == "POST":
@@ -53,8 +65,9 @@ def vista_login(request):
             user=authenticate(username=username ,password=password)
             if user is not None:
                 if user.is_active:
-                    login(request, User)
+                    login(request, user)
                     message="te has logiado correctemante"
+                    return redirect('bienvenido')
                 else:
                     message="usuario inactivo"
             else:
@@ -63,3 +76,23 @@ def vista_login(request):
         form=forms_login
     return render(request,'inicio/login.html', {'message':message, 'form':form})
 
+def vista_loguot(request):
+    logout(request)
+    return redirect('/')
+
+def error404(request):
+    data={}
+    return render(request,'inicio/error404.html',data)
+
+def control_error404(request):
+    try:
+        p = request.user.is_active
+    except:
+        raise Http404("Poll does not exist")
+    return render(request, 'inicio/error404.html', {'poll': p})
+  
+def myView(request, param):  
+  if not param:  
+    return HttpResponseNotFound('<h1>dasdsadsa/h1>')  
+  
+  return render_to_response('inicio/error404.html')  

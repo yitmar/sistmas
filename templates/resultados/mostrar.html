@@ -3,23 +3,53 @@
 {% block title %} resultado {%endblock  %}
 {% block content %}
     <div id="testimonial" class="section-padding" style="margin-top:150px">
-        <div data-velocity="-.3" class="overlay-bg testimonial-bg"></div>
+       <div data-velocity="-.3" class="overlay-bg testimonial-bg"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-md-8">
+                    <div class="list-group-item list-group-item-success">
+                        {% for users in usuario %}
+                            {{users.nombre_usuario}} {{users.apellidos_usuario}} 
+                        {% endfor %}
+                    </div>
                     {% for resulta in resultado%}
                         <div>
-                            <h3>prueba de {{resulta.id_categoria}} 
+                            <h3>prueba de {{resulta.id_categoria}}  {{resulta.fecha_presentacion}}
                                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#{{resulta.id_resultado}}" aria-expanded="false" aria-controls="collapseExample">
                                     ver detalles
                                 </button>
                             </h3>
                             <div class="collapse" id="{{resulta.id_resultado}}">
                                 <div class="card card-body">
-                                    {{resulta.fecha_presentacion}}
-                                    <br>
-                                    <p>la nota del participante {{resulta.id_participante}} es :{{resulta.nota_evaluacion}}</p> 
-                                    <br>
+                                    <p>la nota del participante es:{{resulta.nota_evaluacion}}</p> 
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">perguntas:</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for preguntas in resulta.arreglo_preguntas %}
+                                                <tr>
+                                                    <th scope="row">{{preguntas}}</th>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">respuesta:</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for preguntas in resulta.arreglo_respuesta %}
+                                                <tr>
+                                                    <th scope="row">{{preguntas}}</th>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>         
                         </div>

@@ -27,7 +27,7 @@ DJANGO_APPS=(
 )
 
 THIRD_PARTY_APPS=(
-    'djrill',
+
 )
 
 LOCAL_APPS=(
@@ -89,6 +89,3 @@ USE_L10N = True
 USE_TZ = True
 
 AUTH_USER_MODEL= 'inicio.user'
-
-
-EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend" 

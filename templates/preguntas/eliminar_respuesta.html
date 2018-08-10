@@ -8,7 +8,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="page-title text-center">
                     <h2>eliminar repuesta</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel explicabo excepturi optio corporis iste ad sunt. Fuga itaque doloremque, ex deserunt soluta eveniet magnam illo perferendis numquam, odit rerum optio, tenetur officiis dolor! Quis nihil adipisci labore ipsam provident, porro!</p>
+                    <p></p>
                 </div>
             </div>
         </div>                                 
@@ -18,14 +18,16 @@
                     <h2>Registro:</h2>
                     <form id="contact" name="contact" method="post">
                         {% csrf_token %}
-                        <h3>¿desea eliminar la Respuestas {{Respuestas.nombre_respuesta}} ?</h3>
+                        <h3>¿desea eliminar la Respuestas 
+                            {% for res  in Respuestas  %}
+                            {{res.nombre_respuesta}}?
+                            {% endfor %}
+                        </h3>
                         <fieldset>
                             <input id="submit" type="submit" name="submit" value="elimnar" />  
-                      
                             <a href="{% url 'preguntas' %}">
                                  cancelar
                             </a> 
-
                         </fieldset>
                     </form>	
                 </div>                     

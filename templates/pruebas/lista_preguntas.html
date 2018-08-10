@@ -25,7 +25,9 @@
                         {% for pregunta in preguntas%}
                         <tr>
                             <td>
-                                {{pregunta.nombre_pregunta}}
+                                {% for pre in pregunta %}
+                                    {{pre}}
+                                {% endfor %}
                             </td>
                         </tr>
                         {% empty %}

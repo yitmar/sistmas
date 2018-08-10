@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -14,11 +13,13 @@
     <link rel="stylesheet" href="{%static 'css/owl.carousel.css' %}">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{%static 'css/style.css' %}">
+
     <link rel="stylesheet" href="{%static 'css/responsive.css' %}" >
     <!-- css  -->
 
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <!-- Bootstrap form CDN -->
+    
     <script src="{%static 'js/bootstrap.min.js' %}"></script>
 
     <!-- jQUery scrolly parallax -->
@@ -49,41 +50,59 @@
 
     <body>
 
-    {%block navar%}
-        <header class="header">
-            <div class="container">
-                <div>
-                    <img src="{{STATIC_URL}}/static/img/CINTILLO_cantv.jpg"alt="">
-                </div> 
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="logo">
-                            <h1><a href="{% url 'inicio' %}">Inicio</a></h1>
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>                         
-                        </div>
-                    </div>    
-                    <div class="col-md-9">
-                        <div class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav navbar-right text-uppercase">
-                                <li class="current"><a href="{% url 'registro' %}">Registro</a></li>
-                                <li><a href="{% url 'categoria' %}">Categorias</a></li>
-                                <li><a href="{% url 'lista_prueba' %}">pruebas</a></li>
-                                <li><a href="{% url 'resultado'%}">Resultado</a></li>
-                                <li><a href="#contact-us">auditoria</a></li>
-                                <li><a href="{% url 'logout' %}">salir</a></li>    
-                            </ul>
-                        </div>                    
+            {%block navbar%}
+            <header class="header">
+                <div class="container">
+                    <div>
+                        <img src="{{STATIC_URL}}/static/img/CINTILLO_cantv.jpg"alt="">
+                    </div> 
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="logo">
+                                <h1><a href="{% url 'bienvenido' %}">Inicio</a></h1>
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>                         
+                            </div>
+                        </div>     
+                        {% if user.is_authenticated %}
+                            <div class="col-md-9">
+                                
+                                <div class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav navbar-right text-uppercase">
+                                        
+                                        <li>{{user.nombre_usuario}}</li>
+                                        <li style="margin-left:5px;" >{{user.apellidos_usuario}}</li>
+    
+                                        {% if user.is_participante %}
+    
+                                            <li><a href="{% url 'lista_prueba' %}">pruebas</a></li>
+                                            <li><a href="{% url 'logout' %}">salir</a></li>    
+    
+                                        {% elif user.is_instructor %}
+    
+                                            <li><a href="{% url 'resultado'%}">Resultado</a></li>
+                                            <li><a href="{% url 'categoria' %}">Categorias</a></li>
+                                            <li><a href="#contact-us">auditoria</a></li>
+                                            <li><a href="{% url 'logout' %}">salir</a></li> 
+                                        
+                                        {% elif  user.is_staff %}
+                                        
+                                            <li><a href="{% url 'logout' %}">salir</a></li> 
+    
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %} 
                     </div>
                 </div>
-            </div>
-        </header> <!-- End header -->  
+            </header> <!-- End header --> 
     {%endblock%}
 
     {%block content%} 
@@ -92,18 +111,18 @@
 
     {%block footer%}
     
-    <footer id="footer" class="footer">
-      <div class="container">
-          <div class="row">
-              <div class="col-sm-7">
-                  <div class="footer-copyright">
-                      <p>Compañia Anónima Nacional Teléfonos de Venezuela. RIF: J-00124134-5.- Todos los derechos reservados.</p> <!-- Please do not remove credit link -->
-                  </div>
-              </div>
-          </div>
-      </div>
-    </footer> <!-- End footer top -->
-    
+        <footer id="footer" class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="footer-copyright">
+                        <p>Compañia Anónima Nacional Teléfonos de Venezuela. RIF: J-00124134-5.- Todos los derechos reservados.</p> <!-- Please do not remove credit link -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        </footer> <!-- End footer top -->
+        
     {%endblock%}
     {% block script %}
 

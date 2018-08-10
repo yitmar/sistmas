@@ -7,7 +7,6 @@ lista_tipo_pregunta= (('1', 'seleccion simple',), ('2', 'seleccion multiple',))
 lista_dificultad=(('1','basico',),('2','intermedia',),('3','avanzada',))
 
 class preguntas_form(forms.ModelForm):
-
     tipo_pregunta = forms.ChoiceField(widget=forms.RadioSelect, choices=lista_tipo_pregunta)
     class Meta:
         model=pregunta
@@ -21,3 +20,4 @@ class respuesta_from(forms.ModelForm):
     class Meta:
         model=respuesta
         fields=("nombre_respuesta","tipo_respuesta")
+

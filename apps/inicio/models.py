@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.validators import RegexValidator
 
-
-
 # Create your models here.
 
 class usermanager(BaseUserManager):
@@ -56,7 +54,7 @@ class user(AbstractBaseUser,PermissionsMixin):
             )
         ])
 
-    correo_usuario=models.EmailField(validators=[
+    email=models.EmailField(validators=[
             RegexValidator(
                 regex='^[a-zA-Z]*@hotmail.com|[a-zA-Z]*@gmail.com$',
                 message='solo se permiten correos hotmail.com o gmail.com'
@@ -71,7 +69,7 @@ class user(AbstractBaseUser,PermissionsMixin):
                 message='solo se aceptas numeros'
             )
         ])
-    celuda_usuario=models.IntegerField(unique=True, validators=[
+    cedula_usuario=models.IntegerField(unique=True, validators=[
             RegexValidator(
                 regex='^[0-9]{6,8}',
                 message='solo se aceptas numeros'
@@ -81,12 +79,12 @@ class user(AbstractBaseUser,PermissionsMixin):
     is_active=models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
     is_participante=models.BooleanField(default=False)
-    id_instructor=models.BooleanField(default=False)
+    is_instructor=models.BooleanField(default=False)
 
-    USERNAME_FIELD='celuda_usuario'
-    REQUIRED_FIELD=['celuda_usuario','password']
+    USERNAME_FIELD='cedula_usuario'
+    REQUIRED_FIELD=['cedula_usuario','password']
 
     objects= usermanager()
 
     def __str__(self):
-        return '{} {}'.format(self.nombre_usuario, self.apellidos_usuario)
+        return self.cedula_usuario

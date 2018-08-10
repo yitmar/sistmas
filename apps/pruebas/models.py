@@ -4,6 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 
 from apps.preguntas.models import pregunta as Pregunta
 from apps.users.models import participante as Participante
+from apps.inicio.models import user as User
 
 
 # Create your models here.
@@ -35,12 +36,12 @@ class prueba(models.Model):
     arreglo_valor=ArrayField(models.IntegerField(), blank=True)
     
     def __str__(self):
-        return '{}'.format(self.id_prueba)
+        return self.nombre_prueba
 
 class prueba_presona(models.Model):
     id_prueba_presona=models.AutoField(primary_key=True)
-    id_participante=models.ForeignKey(Participante,on_delete=models.CASCADE)
-    id_prueba=models.ForeignKey(prueba,on_delete=models.CASCADE)
+    id_admin=models.IntegerField()
+    id_prueba=models.IntegerField()
     
     def __str__(self):
-        return self.id_prueba_presona 
+        return '{}'.format(self.id_prueba_presona) 

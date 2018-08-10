@@ -7,14 +7,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <h2>buscar resultado</h2>
+                    <h2>buscar resultado por Participante</h2>
                     <form name="form" action="{% url 'buscar' %}" method="post" >
                         {% csrf_token %}
                         <fieldset class="clean">
                             <label>
                                 instrusca el numero de cedula del participante:
                             </label>
-                            <input type="text" name="buscar" required>
+                            <input type="text" name="cedula" required>
+                            <input type="button" value="buscar">
+                        </fieldset>
+                    </form>               
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <h2>buscar resultado por categoia</h2>
+                    <form name="form" action="{% url 'buscar' %}" method="post" >
+                        {% csrf_token %}
+                        <fieldset class="clean">
+                            <label>
+                                instrusca el numero de cedula del participante:
+                            </label>
+                            <input type="text" name="cedula" required>
                             <input type="button" value="buscar">
                         </fieldset>
                     </form>               

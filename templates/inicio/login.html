@@ -15,15 +15,20 @@
                             {% if message %}
                                 {{message}}
                             {% else %}
-                                {{message}}
                             {% endif %}
-                            <form id="contact" name="contact" method="post">
-                                {% csrf_token %}
-                                {{form.as_p}}
+                            <div class="login">
+                                <form id="contact" name="contact" method="post">
+                                    {% csrf_token %}
+                                    {{form.as_p}}
+                                    <fieldset>
+                                        <input id="submit" type="submit" name="submit" value="entrar" />  
+                                    </fieldset>
+                                </form>
                                 <fieldset>
-                                    <input id="submit" type="submit" name="submit" value="entrar" />  
+                                    <a href="{% url 'password_reset' %}">Olvide mi contraseña</a>
                                 </fieldset>
-                            </form>
+                            </div>
+                        
                             <a href="{% url 'registro_participante' %}" class="learn-more">registrarse como participante</a> 
                             <a href="{% url 'registro_instructor' %}" class="learn-more">registrarse como instructor</a>                     
                         </div>                    

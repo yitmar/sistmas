@@ -15,14 +15,10 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <td>
+                            <td colspan="1">
                                 Nombre de pregunta:  
-                                {% for pregunta in datos_preguntas  %}
-                                {{pregunta.nombre_pregunta}}
-                                {% endfor %}
-                                
                             </td>
-                            <td>
+                            <td colspan="3">
                                 {% for pregunta in datos_preguntas  %}
                                     {{pregunta.nombre_pregunta}}
                                 {% endfor %}
@@ -39,15 +35,19 @@
                                 {{respuesta.tipo_respuesta}}
                             </td>
                             <td>
-                                <a href="#">editar</a>
+                                <a href="{% url 'editar_respuesta' pk=respuesta.id_respuesta %}">editar</a>
                             </td>
                             <td>
                                 <a href="{% url 'eliminar_respuesta' pk=respuesta.id_respuesta %}">eliminar</a>
                             </td>
                         </tr>
                     {% empty %}
-                        no hay repuesta
-                        <a href="{% url 'preguntas' %}">volver</a>
+                        <tr>
+                            <td>
+                                no hay repuesta
+                                <a href="{% url 'preguntas' %}">volver</a>
+                            </td>
+                        </tr>
                     {% endfor %}
                         <tr>
                             <td>

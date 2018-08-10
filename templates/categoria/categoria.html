@@ -32,7 +32,7 @@
                         <p>{{ categoria.descripcion_categoria }}</p>
                         <div>
                             <div class="col-md-6 col-sm-6">
-                                <a href="#">editar</a>
+                                <a href="{% url 'editar_categoria' pk=categoria.id_categoria %}">editar</a>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <a href="{% url 'eliminar_categoria' pk=categoria.id_categoria %}">eliminar</a>
