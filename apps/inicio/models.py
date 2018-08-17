@@ -6,30 +6,19 @@ from django.core.validators import RegexValidator
 
 class usermanager(BaseUserManager):
 
-    def crear_user(self, celuda_usuario, password):
-        user=self.model(celuda_usuario=celuda_usuario)
+    def crear_user(self, cedula_usuario, password):
+        user=self.model(cedula_usuario=cedula_usuario)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, celuda_usuario, password):
-        admin=self.crear_user(celuda_usuario,password)
+    def create_superuser(self, cedula_usuario, password):
+        admin=self.crear_user(cedula_usuario,password)
         admin.is_staff= True
         admin.is_superuser=True
         admin.save(using=self._db)
         return admin
 
-    def crear_participante(self,celuda_usuario,password):
-        particante=self.model(celuda_usuario,password)
-        particante.is_participante=True
-        particante.save(using=self._db)
-        return particante
-
-    def crear_instructor(self,celuda_usuario,password):
-        instructor=self.model(celuda_usuario,password)
-        instructor.is_instructor=True
-        instructor.save(using=self._db)
-        return instructor
 
 class user(AbstractBaseUser,PermissionsMixin):
     
@@ -54,12 +43,7 @@ class user(AbstractBaseUser,PermissionsMixin):
             )
         ])
 
-    email=models.EmailField(validators=[
-            RegexValidator(
-                regex='^[a-zA-Z]*@hotmail.com|[a-zA-Z]*@gmail.com$',
-                message='solo se permiten correos hotmail.com o gmail.com'
-            )
-        ])
+    email=models.EmailField()
 
     fecha_participacion=models.DateField(auto_now=True)
 
@@ -87,4 +71,4 @@ class user(AbstractBaseUser,PermissionsMixin):
     objects= usermanager()
 
     def __str__(self):
-        return self.cedula_usuario
+        return '{}'.format(self.cedula_usuario) 

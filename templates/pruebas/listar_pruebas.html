@@ -3,45 +3,34 @@
 {% block title %} listas de prueba {%endblock  %}
 {% block content%}
     <div id="testimonial" class="section-padding" style="margin-top:150px;">
-        <div data-velocity="-.3" class="overlay-bg testimonial-bg"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div id="testimonial-list" class="carousel slide text-center" data-ride="carousel">
-                        <div class="carousel-inner" role="listbox">
-                            {% for prue in pruebas %}
-                                <div class="item">
-                                    <div class="">
-                                        <a href="{% url 'ver_prueba' pk=prue.id_prueba_presona %}">
-                                            <img class="author-photo" src="{{STATIC_URL}}/static/img/avater.png" alt="">
-                                        </a>
-                                        <p>Tiene una prueba con de la unida de </p>
-                                        <p>Prueba numero: {{prue.id_prueba}} </p>
-                                        <p class="author-name">{{prue.id_participante}} <span>fecha tope de presentación </span></p>
-                                    </div>
-                                </div>
-                            {% empty %}
-                            <li>no tiene prueba programada
-                                <br>
-                                <a href="{% url 'bienvenido' %}"> volver</a>
-                            </li>
-                            {% endfor %}
-                            <div class="item active">
-                                <div class="">
-                                    <img class="author-photo" src="{{STATIC_URL}}/static/img/avater.png" alt="">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident nisi, esse sit voluptates. Commodi porro dolore consequuntur quod esse quidem minus, obcaecati neque numquam eum dolor, quam eaque fugit in.</p>
-                                    <p class="author-name">Michael Johonson, <span>CEO, Perfect Point Marketing</span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="left tc-control" href="#testimonial-list" role="button" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a class="right tc-control" href="#testimonial-list" role="button" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </div>                    
+                <div class="col-md-12 col-md-offset-2">
+                    <div class="page-title">
+                        <h2>Pruebas asignada</h2>
+                    </div>
                 </div>
+            </div>
+            <div class="row">
+                {% for prue in pruebas %}
+                <div class="col-md-4 col-sm-4">
+                    <div class="item">
+                        <div class="">
+                            <a href="{% url 'ver_prueba' pk=prue.id_prueba_presona %}">
+                                <img class="author-photo" src="{{STATIC_URL}}/static/img/avater.png" alt="">
+                            </a>
+                            <p>Tiene una prueba con de la unida de </p>
+                            <p>Prueba numero: {{prue.id_prueba}} </p>
+                            <p class="author-name">{{prue.id_participante}} <span>fecha tope de presentación </span></p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <li>no tiene prueba programada
+                    <br>
+                    <a href="{% url 'bienvenido' %}"> volver</a>
+                </li>
+                {% endfor %}
             </div>
         </div>
     </div>    <!-- End testimonials -->

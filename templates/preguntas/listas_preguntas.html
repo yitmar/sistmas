@@ -15,8 +15,8 @@
             <div class="row">
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
-                            <td>
+                        <tr colspan="3">
+                            <td class="tablas">
                                 Lista de preguntas
                             </td>
                         </tr>
@@ -24,16 +24,16 @@
                     <tbody>
                         {% for pregunta in preguntas%}
                         <tr>
-                            <td>
+                            <td class="tablas">
                                 {{pregunta.nombre_pregunta}}
                             </td>
-                            <td>
+                            <td class="tablas">
                                 <a href="{% url 'buscar_repuesta' pk=pregunta.id_pregunta %}">ver respuesta</a> 
                             </td>
-                            <td>
+                            <td class="tablas">
                                 <a href="{% url 'editar_pregunta' pk=pregunta.id_pregunta %}">editar</a>
                             </td>
-                            <td>
+                            <td class="tablas">
                                 <a href="{% url 'eliminar_pregunta' pk=pregunta.id_pregunta %}">eliminar</a>
                             </td>
                         </tr>
@@ -46,7 +46,7 @@
                         </tr>    
                         {% endfor %}
                         <tr>
-                            <td>
+                            <td  colspan="4" class="td">
                                 cargar nueva pregunta {{pk}} {{dificultad}}
                                 <a href="{% url 'registrar_pregunta' pk=pk tipo=dificultad %}">+</a>
                             </td>
@@ -56,4 +56,5 @@
             </div>        
         </div>
     </section>
+    
 {% endblock %}

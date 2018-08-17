@@ -16,7 +16,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <td>
+                            <td class="tablas"> 
                                 Lista de preguntas
                             </td>
                         </tr>
@@ -24,7 +24,7 @@
                     <tbody>
                         {% for pregunta in preguntas%}
                         <tr>
-                            <td>
+                            <td class="tablas">
                                 {% for pre in pregunta %}
                                     {{pre}}
                                 {% endfor %}
@@ -36,7 +36,7 @@
                         {% endfor %}
                         <tr>
                             <tr>
-                                <td>
+                                <td class="tablas">
                                     <button >
                                         volver
                                     </button>

@@ -36,7 +36,7 @@ class prueba(models.Model):
     arreglo_valor=ArrayField(models.IntegerField(), blank=True)
     
     def __str__(self):
-        return self.nombre_prueba
+        return self.id_prueba
 
 class prueba_presona(models.Model):
     id_prueba_presona=models.AutoField(primary_key=True)

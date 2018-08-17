@@ -22,3 +22,4 @@ class categoria(models.Model):
 class sub_categoria(models.Model):
     id_subcategoria=models.AutoField(primary_key=True)
     id_categoria=models.ForeignKey('categoria',on_delete=models.CASCADE)
+    id_categoria=models.ForeignKey('categoria',on_delete=models.CASCADE)

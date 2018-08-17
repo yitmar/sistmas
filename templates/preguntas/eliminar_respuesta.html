@@ -1,39 +1,58 @@
 {% extends "base.html"%}
 
 {% block title %} eliminar repuesta {% endblock %}
+
 {% block content%}
-<section id="contact-us" class="section-padding" style="margin-top:80px">
-    <div class="container">   
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="page-title text-center">
-                    <h2>eliminar repuesta</h2>
-                    <p></p>
+
+    <div class="modal fade bd-example-modal-sm" id="mostrarmodal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content confimacion">
+                <div class="modal-header">
+                   
                 </div>
-            </div>
-        </div>                                 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-content">
-                    <h2>Registro:</h2>
-                    <form id="contact" name="contact" method="post">
-                        {% csrf_token %}
-                        <h3>¿desea eliminar la Respuestas 
-                            {% for res  in Respuestas  %}
-                            {{res.nombre_respuesta}}?
-                            {% endfor %}
-                        </h3>
-                        <fieldset>
-                            <input id="submit" type="submit" name="submit" value="elimnar" />  
-                            <a href="{% url 'preguntas' %}">
-                                 cancelar
-                            </a> 
-                        </fieldset>
-                    </form>	
-                </div>                     
+                <div class="modal-body ">
+                        {{message}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+                    
+                </div>
             </div>
         </div>
     </div>
-</section> <!-- End contact us -->
+
+    <section id="contact-us" class="section-padding" style="margin-top:80px">
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>eliminar repuesta</h2>
+                        <p></p>
+                    </div>
+                </div>
+            </div>                                 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>Registro:</h2>
+                        <form id="contact" name="contact" method="post">
+                            {% csrf_token %}
+                            <h3>¿desea eliminar la Respuestas 
+                                {% for res  in Respuestas  %}
+                                {{res.nombre_respuesta}}?
+                                {% endfor %}
+                            </h3>
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="elimnar" />  
+                                <a href="{% url 'preguntas' %}">
+                                    cancelar
+                                </a> 
+                            </fieldset>
+                        </form>	
+                    </div>                     
+                </div>
+            </div>
+        </div>
+    </section> <!-- End contact us -->
 
 {% endblock %}

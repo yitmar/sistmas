@@ -2,6 +2,7 @@
 
 {% block title %} lista de respuesta {% endblock %}
 {% block content %}
+
     <section id="services" class="section-padding" style="margin-top:80px">
         <div class="container">
             <div class="row">
@@ -15,11 +16,11 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <td colspan="1">
+                            <td colspan="1" class="tablas">
                                 Nombre de pregunta:  
                             </td>
-                            <td colspan="3">
-                                {% for pregunta in datos_preguntas  %}
+                            <td colspan="3" class="tablas">
+                                {% for pregunta in datos_preguntas %}
                                     {{pregunta.nombre_pregunta}}
                                 {% endfor %}
                             </td>
@@ -28,29 +29,29 @@
                     <tbody>
                     {% for respuesta in respuestas%}
                         <tr>
-                            <td>
+                            <td class="tablas">
                                 {{respuesta.nombre_respuesta}}
                             </td>
-                            <td>
+                            <td class="tablas">
                                 {{respuesta.tipo_respuesta}}
                             </td>
-                            <td>
+                            <td class="tablas">
                                 <a href="{% url 'editar_respuesta' pk=respuesta.id_respuesta %}">editar</a>
                             </td>
-                            <td>
+                            <td class="tablas">
                                 <a href="{% url 'eliminar_respuesta' pk=respuesta.id_respuesta %}">eliminar</a>
                             </td>
                         </tr>
                     {% empty %}
                         <tr>
-                            <td>
+                            <td class="tablas">
                                 no hay repuesta
                                 <a href="{% url 'preguntas' %}">volver</a>
                             </td>
                         </tr>
                     {% endfor %}
                         <tr>
-                            <td>
+                            <td colspan="4" class="tablas">
                                 cargar nueva respuesta {{id_pregunta}}
                                 <a href="{% url 'registrar_respuesta' pk=id_pregunta %}">+</a>
                             </td>

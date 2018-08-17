@@ -22,15 +22,28 @@
                             {% csrf_token %}
                             
                             <fieldset>
-                                <label for="">selecione usuario:</label>                            
-                                                              
-                                {{form.id_admin}}                                                                
-                                {{form.id_admin.errors}} 
+                                <label for="">selecione usuario:</label>  
+                                <select name="usuarios" id="" required>
+                                    {% for usuarios in lista_usuarios %}
+                                        <option value="{{usuarios.0}}">{{usuarios.1}}</option>
+                                        
+                                    
+                                    {% empty %}
+                                        no hay participantes
+                                    {% endfor %}
+                                </select>                           
+                             
                             </fieldset>
                             <fieldset>
-                                <label for="">selecione la prueba:</label>                            
-                                {{form.id_prueba}}                                                                
-                                {{form.id_prueba.errors}}        
+                                <label for="">selecione la prueba:</label> 
+                                <select name="prueba" id="" required>
+                                    {% for prueba in  lista_pruebas%}
+                                            <option value="{{prueba.0}}">{{prueba.1}}</option>
+                                        {% empty %}
+                                            no hay pruebas creadas
+                                        {% endfor %}
+                                </select>                           
+                               
                             </fieldset>
                             <fieldset>
                                 <input id="submit" type="submit" name="submit" value="guardar" />  

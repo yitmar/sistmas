@@ -3,8 +3,8 @@ from django.views.generic import View, ListView, CreateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
-from apps.inicio.decorador import instructor_required
 from apps.inicio.models import user
+from apps.resultados.models import resultado as Resultado
 
 from .models import categoria
 from .forms import nueva_categoria_form
@@ -65,13 +65,22 @@ def vista_editar_categoria(request, pk):
 def vista_eliminar_categoria(request,pk):
     if request.user.is_instructor:
         Categoria=categoria.objects.filter(id_categoria=pk)
+        nombre_categoria=0
+        for cate in Categoria:
+            nombre_categoria=cate.nombre_categoria
         if request.method == 'POST':
-            Categoria.delete()
+            resultado=Resultado.objects.filter(id_categoria=pk)
+            nombre_categoria_resultado=0
+            for res in resultado:
+                nombre_categoria_resultado=(res.id_categoria)
+            if (str(nombre_categoria))==(str(nombre_categoria_resultado)):
+                message="no se puede elimar esta categoria ya que posee una prueba ya realizada "
+                return render(request, 'categoria/eliminar_categoria.html',{'Categoria':Categoria, 'message':message})
+            else:
+                Categoria.delete()
             return redirect('categorias')
         return render(request, 'categoria/eliminar_categoria.html',{'Categoria':Categoria})
     else:
         message="no tiene permiso para para esta vista"
         return render(request,"inicio/index.html",{'message':message})
   
-
-

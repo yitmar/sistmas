@@ -3,15 +3,48 @@
 {% extends "base.html"%}
 
 {% block title %} prenta la prueba {% endblock %}
+{% block javascrpt %}
+
+ 
+{% endblock  %}
 
 {% block content %}
     <div class="container-fluid bg-info" style="margin-top:150px; margin-bottom:150px;">
+        <div id="clock">
+        </div>
+        <script type="text/javascript">
+            const countdown = (deadline,elem,finalMessage) => {
+                const el = document.getElementById(elem);
+                var contador_s=60;
+                var contador_m={{durancion_pruaba}}-1;
+                const timerUpdate = setInterval( () => {
+                    
+                    if(contador_s==0)
+                    {
+                        contador_s=60;
+                        contador_m--;
+                        if (contador_m==0)
+                        {
+                            contador_m=0;
+                        }
+                    }
+                    contador_s=contador_s-1;
+                    el.innerHTML = `${contador_m}m:${contador_s}s`;
+                if((contador_m==0) && (contador_s==0)) {
+                    clearInterval(timerUpdate);
+                    el.innerHTML = finalMessage;
+                }
+                }, 1000)
+            };
+            duracion={{durancion_pruaba}}
+            countdown(duracion, 'clock', '¡Ya empezó!');
+        </script>
         <form id="contact" method="post">
             {% csrf_token %}
             {% for condi in pruebs_presona %}
                 <div class="form-content">
                     <label>
-                        nombre participante:{{condi.id_participante}}
+                        nombre participante: {{user.nombre_usuario}} {{user.apellidos_usuario}}
                     </label>
                     <div class="examen">
                         {% for prueba in arreglos_prueba %}

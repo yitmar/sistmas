@@ -2,40 +2,39 @@
 
 {% block title %} eliminar prueba {% endblock %}
 {% block content%}
-<section id="contact-us" class="section-padding" style="margin-top:80px">
-    <div class="container">   
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="page-title text-center">
-                    <h2>Eliminar Prueba</h2>
+
+    <section id="contact-us" class="section-padding" style="margin-top:80px">
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Eliminar Prueba</h2>
+                    </div>
+                </div>
+            </div>                                 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>Registro:</h2>
+                        <form id="contact" name="contact" method="post">
+                            {% csrf_token %}
+                            <h3>¿desea eliminar la prueba 
+                                "{% for p in prueba %}
+                                    {{p.nombre_prueba}}
+                                {% endfor %}"
+                                ?
+                            </h3>
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="elimnar" />  
+                                <a href="{% url 'pruebas' %}">
+                                    cancelar
+                                </a> 
+                            </fieldset>
+                        </form>	
+                    </div>                     
                 </div>
             </div>
-        </div>                                 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-content">
-                    <h2>Registro:</h2>
-                    <form id="contact" name="contact" method="post">
-                        {% csrf_token %}
-                        <h3>¿desea eliminar la prueba 
-                            "{% for p in prueba %}
-                                {{p.nombre_prueba}}
-                            {% endfor %}"
-                            ?
-                        </h3>
-                        <fieldset>
-                            <input id="submit" type="submit" name="submit" value="elimnar" />  
-                      
-                            <a href="{% url 'pruebas' %}">
-                                 cancelar
-                            </a> 
-
-                        </fieldset>
-                    </form>	
-                </div>                     
-            </div>
         </div>
-    </div>
-</section> <!-- End contact us -->
+    </section> <!-- End contact us -->
 
 {% endblock %}

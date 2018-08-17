@@ -17,7 +17,7 @@ from .forms import forms_login, formulario_registero_particpante, formilario_reg
 class vista_registro_participante(CreateView):
     model = User
     form_class = formulario_registero_particpante
-    template_name = 'inicio/registro.html'
+    template_name = 'inicio/registro_participante.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'particpante'
@@ -26,12 +26,12 @@ class vista_registro_participante(CreateView):
     def form_valid(self, form):
         User = form.save()
         login(self.request, User)
-        return redirect('lista_prueba')
+        return redirect('vista_validacion_usuario')
 
 class vista_registro_instructor(CreateView):
     model = User
     form_class = formilario_registro_instructor
-    template_name = 'inicio/registro.html'
+    template_name = 'inicio/registro_instructor.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'instructor'
@@ -40,7 +40,7 @@ class vista_registro_instructor(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('lista_prueba')
+        return redirect('vista_validacion_usuario')
 
 @login_required(login_url= '/')
 def vista_inicio(request):
@@ -52,8 +52,21 @@ def vista_inicio(request):
     elif request.user.is_instructor:
         message="bienvenido instructor"        
     else:
-        message="eres administrardor no puedes hacer entrer al sistema "
+        message="eres administrardor no puedes hacer entrer al sistema"
     return render(request,'inicio/index.html', {'message':message, 'datos_user':datos_user})
+
+@login_required(login_url= '/')
+def vista_validacion_usuario(request):
+    message=None
+    cedula=request.user.cedula_usuario
+    datos_user=User.objects.filter(cedula_usuario=cedula)
+    if request.user.is_participante:
+        message="registro exito del pasticipante"
+    elif request.user.is_instructor:
+        message="registro exito del instructor"        
+    else:
+        message="eres administrardor no puedes hacer entrer al sistema "
+    return render(request,'inicio/confimarcion_de_registro.html', {'message':message, 'datos_user':datos_user})
 
 def vista_login(request):
     message= None

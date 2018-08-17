@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from apps.categoria.models import categoria as Categoria
+from apps.resultados.models import resultado as Resultado
+from apps.pruebas.models import prueba as Prueba
 
 from .models import pregunta, respuesta
 from .froms import preguntas_form, respuesta_from
@@ -88,7 +90,24 @@ def vista_editar_pregunta(request, pk):
 def vista_eliminar_pregunta(request, pk):
     if request.user.is_instructor:    
         Pregunta=pregunta.objects.filter(id_pregunta=pk)
+        nombre_pregunta=0
+        for pregun in Pregunta:
+            nombre_pregunta=pregun.nombre_pregunta
         if request.method == 'POST':
+            prueba=Prueba.objects.all()
+            for prue in prueba:
+                pr=prue.arreglo_preguntas
+                for pre in pr:
+                    if pre==pk:
+                        message="no se puede eliminar esta pregunta ya que posee una prueba ya realizada"
+                        return render(request, 'preguntas/eliminar_pregunta.html',{'Pregunta':Pregunta, 'message':message})
+            resultado=Resultado.objects.all()
+            for result in resultado:
+                re=result.arreglo_preguntas
+                for relta in re:
+                    if (str(relta))==(str(nombre_pregunta)):
+                        message="no se puede eliminar esta pregunta ya que posee una prueba ya realizada"
+                        return render(request, 'preguntas/eliminar_pregunta.html',{'Pregunta':Pregunta, 'message':message})
             Pregunta.delete()
             return redirect('/preguntas')
         return render(request, 'preguntas/eliminar_pregunta.html',{'Pregunta':Pregunta})
@@ -143,7 +162,6 @@ def vista_editar_respuesta(request, pk):
     else:
         message="no tiene permiso para para esta vista"
         return render(request,"inicio/index.html",{'message':message})
-
 
 @login_required(login_url= '/')
 def vista_eliminar_repuesta(request, pk):

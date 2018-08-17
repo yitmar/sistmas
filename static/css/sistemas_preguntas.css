@@ -74,6 +74,23 @@
 
 .login{
   border: 10x red solid;
+}
+.error{
+  color: red ;
+}
+tr td{
+  border: rgba(9, 10, 9, 0.87) solid 4px !important;
+}
 
+thead{
+  background-color: rgb(96, 230, 140);
+}
 
+.confimacion{
+  margin-top: 35%;
+  font-size: 30px;
+  text-align: center;
+  background-color: rgb(32, 161, 15);
+  width: 80%;
+  height: 150%;
 }

@@ -1,0 +1,88 @@
+{% extends "base.html"%}
+
+{% block title %} registro de Participante{% endblock  %}
+{% block script %}  {% endblock  %}
+
+{% block content%}
+    <section id="contact-us" class="section-padding" style="margin-top:100px;">
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Registro De Participante</h2>
+                    </div>
+                </div>
+            </div>                                 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>Registro:</h2>
+                        <form id="contact" name="contact" method="post">
+                            {% csrf_token %}
+                            <fieldset class="clean">
+                                {{form.nombre_usuario.label}}
+                                {{form.nombre_usuario}}
+                                <div class="error">
+                                    {{form.nombre_usuario.errors}}
+                                </div>
+                            </fieldset>
+                            <fieldset class="clean">
+                                {{form.apellidos_usuario.label}}
+                                {{form.apellidos_usuario}}
+                                <div class="error">
+                                    {{form.apellidos_usuario.errors}}
+                                </div>
+                            </fieldset>
+                            <fieldset class="clean">
+                                {{form.cedula_usuario.label}}
+                                {{form.cedula_usuario}}
+                                <div class="error">
+                                    {{form.cedula_usuario.errors}}
+                                </div>
+                            </fieldset>
+                            <fieldset class="clean">
+                                {{form.email.label}}
+                                {{form.email}}
+                                <div class="error">
+                                    {{form.email.errors}}
+                                </div>
+                            </fieldset>
+                            <fieldset class="clean" required>
+                                {{form.p00.label}}
+                                {{form.p00}}
+                                <div class="error">
+                                    {{form.p00.errors}}
+                                </div>
+                            </fieldset>
+                            <fieldset class="clean">
+                                {{form.tefelono_usuario.label}}
+                                {{form.tefelono_usuario}}
+                                <div class="error">
+                                    {{form.tefelono_usuario.errors}}
+                                </div>
+                            </fieldset>
+                            <fieldset class="clean">
+                                {{form.password1.label}}
+                                {{form.password1}}
+                                <div class="error">
+                                    {{form.password1.errors}}
+                                </div>
+                            </fieldset>
+                            <fieldset class="clean">
+                                {{form.password2.label}}
+                                {{form.password2}}
+                                <div class="error">
+                                    {{form.password2.errors}}
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="guardar" />  
+                            </fieldset>
+                        </form>	
+                    </div>                     
+                </div>
+            </div>
+        </div>
+    </section> <!-- End contact us -->
+    
+{% endblock %}

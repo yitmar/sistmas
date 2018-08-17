@@ -16,7 +16,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <td>
+                            <td class="tablas">
                                 Lista de pruebas
                             </td>
                         </tr>
@@ -24,14 +24,14 @@
                     <tbody>
                         {% for pru in prueba %}
                         <tr>
-                            <td>
+                            <td class="tablas">
                                 {{pru.nombre_prueba}}
                             </td>
-                            <td>
+                            <td class="tablas">
                                 <a href="{% url 'buscar_preguntas' pk=pru.id_prueba %}">ver preguntas</a> 
                             </td>
 
-                            <td>
+                            <td class="tablas">
                                 <a href="{% url 'eliminar_prueba' pk=pru.id_prueba %}">eliminar</a>
                             </td>
                         </tr>
@@ -44,7 +44,7 @@
                         </tr>
                         {% endfor %}
                         <tr>
-                            <td>
+                            <td colspan="5" class="tablas">
                                 cargar nueva pregunta {{id_categoria}} {{id_dificultad}}
                                 <a href="{% url 'crear_prueba' pk=id_categoria tipo=id_dificultad %} ">+</a>
                             </td>

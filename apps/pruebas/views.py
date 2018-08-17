@@ -9,10 +9,10 @@ from random import randint
 from apps.categoria.models import categoria as Categoria
 from apps.preguntas.models import pregunta, respuesta, dificultad
 from apps.resultados.models import resultado
-from apps.inicio.decorador import instructor_required
+from apps.inicio.models import user as User
 
 from .models import prueba as Prueba, prueba_presona
-from .forms import formulario_crear_prueba, formulario_asignar_prueba, formulario_realizar_prueba
+from .forms import formulario_crear_prueba, formulario_realizar_prueba
  
 # Create your views here.
 
@@ -33,7 +33,7 @@ def vista_listar_pruebas(request, pk, tipo):
         id_categoria=pk
         id_dificultad=tipo
         prueba=Prueba.objects.filter(id_categoria=pk, id_dificultad=id_dificultad)
-        print(prueba)
+    
         return render(request,'pruebas/listas_crear_preguntas.html',{'prueba':prueba,'id_categoria':id_categoria,'id_dificultad':id_dificultad})
     else:
         message="no tiene permiso para para esta vista"
@@ -64,6 +64,8 @@ def vista_buscar_preguntas(request, pk):
 
 @login_required(login_url= 'categorias')
 def vista_crear_prueba(request,pk,tipo):
+    pk=pk
+    tipo=tipo
     if request.user.is_instructor:
         id_categoria=pk
         id_dificultad=tipo
@@ -78,7 +80,7 @@ def vista_crear_prueba(request,pk,tipo):
                 nueva_prueba.arreglo_preguntas=arreglo_preguntass
                 nueva_prueba.arreglo_valor=arreglo_valor
                 nueva_prueba.save()
-                return redirect('/listar_prueba/ (<pk>[0-9])(<tipo>[0-9])')
+                return vista_listar_pruebas(request,pk,tipo)
             else:
                 print("invalido")
                 pass
@@ -87,7 +89,6 @@ def vista_crear_prueba(request,pk,tipo):
             preguntas=pregunta.objects.filter(id_categoria=pk,dificultad=tipo)
             for pre in preguntas:
                 id_pregunta=pre.id_pregunta
-
                 respuestas=respuesta.objects.filter(id_pregunta=id_pregunta).order_by("tipo_respuesta")
                 cantidad_respuest=len(respuestas)
                 if cantidad_respuest >0:
@@ -95,7 +96,7 @@ def vista_crear_prueba(request,pk,tipo):
                         if res.tipo_respuesta:
                             pregunta_valida=pregunta.objects.get(id_pregunta=id_pregunta)
                             arreglo_preguntas.append(pregunta_valida)
-            print(arreglo_preguntas)
+           
             form=formulario_crear_prueba 
             form=formulario_crear_prueba    
             return render(request,'pruebas/crear_pruebas.html',{'form':form,'arreglo_preguntas':arreglo_preguntas})
@@ -124,17 +125,32 @@ def vista_eliminar_prueba(request, pk):
 def vista_Asignar_prueba(request):
     if request.user.is_instructor: 
         if request.method=="POST":
-            form=formulario_asignar_prueba(request.POST)
-            if form.is_valid():
-                nueva_asignacion=form.save()
+            nueva_asignacion=prueba_presona(id_admin=request.POST['usuarios'],id_prueba=request.POST['prueba'])
+            
+            nueva_asignacion.save()
             return redirect('categoria') 
         elif request.method== 'GET':
-            form=formulario_asignar_prueba
-        return render(request,'pruebas/asignar_prueba.html',{'form':form})
+
+            pruebas=Prueba.objects.all()
+            lista_pruebas=[]
+            for prue in pruebas:
+                id_prueb=prue.id_prueba            
+                nombre_prueba=prue.nombre_prueba
+                listaaa=(id_prueb,nombre_prueba)
+                lista_pruebas.append(listaaa)
+
+            participante=True
+            useuarios=User.objects.filter(is_participante=participante)
+            lista_usuarios=[]
+            for prue in useuarios:
+                id_admin=prue.cedula_usuario            
+                nombre_usuario=prue.nombre_usuario
+                listaa=(id_admin,nombre_usuario)
+                lista_usuarios.append(listaa)
+            return render(request,'pruebas/asignar_prueba.html',{'lista_pruebas':lista_pruebas,'lista_usuarios':lista_usuarios})
     else:
         message="no tiene permiso para para esta vista"
         return render(request,"inicio/index.html",{'message':message})
-
     
 class lista_prueba(LoginRequiredMixin, ListView):
     login_url='/'
@@ -149,15 +165,18 @@ class lista_prueba(LoginRequiredMixin, ListView):
 @login_required(login_url= '/')
 def vista_ver_pruebas_asignadas(request):
     if request.user.is_participante:
-        participantes=request.user.id_admin
+        participantes=request.user.cedula_usuario
         try:
             pruebas=prueba_presona.objects.filter(id_admin=participantes)
             lista_prueba=[]
             for prue in pruebas:
                 id_prueba=prue.id_prueba
-                lista_prueba.append(id_prueba)
+                prueba=Prueba.objects.filter(id_prueba=id_prueba)
+                for pru in prueba:
+                    pru.id_categoria
+                    lista_prueba.append(id_prueba)
             return render(request,'pruebas/listar_pruebas.html',{'pruebas':pruebas,'lista_prueba':lista_prueba})
-        except:
+        except TypeError:
             message="no error no hay prueba asisnada"
             return render(request,'pruebas/listar_pruebas.html',{'message':message})            
     else:
@@ -165,7 +184,7 @@ def vista_ver_pruebas_asignadas(request):
         return render(request,"inicio/index.html",{'message':message})
 
 @login_required(login_url= '/')
-def datos(request,pk):
+def vista_realizar_prueba(request,pk):
     if request.user.is_participante:
         
         pruebs_presona=prueba_presona.objects.filter(id_prueba_presona=pk)
@@ -195,7 +214,6 @@ def datos(request,pk):
                 arreglo_preguntas=prue.arreglo_preguntas
                 arreglo_valor=prue.arreglo_valor
                 id_categoria=prue.id_categoria
-            
             rango_pregunta=len(arreglo_preguntas)-1
 
         if request.method == 'POST':
@@ -241,12 +259,16 @@ def datos(request,pk):
                 nota_evaluacion=nota+nota_evaluacion
                 numero_pregunta=numero_pregunta+1
                 a=a+1
+            
+            participante=User.objects.get(cedula_usuario =id_admin)
+
+            print("guardar")
             print (id_admin)
             print (id_categoria)
             print (arreglo_pregunta)
             print (nota_evaluacion)
             print (arreglo_respuesta)    
-            nueva_resultado=resultado(id_admin=id_admin,
+            nueva_resultado=resultado(id_admin=participante,
                                     id_categoria=id_categoria,
                                     arreglo_preguntas=arreglo_pregunta,
                                     arreglo_respuesta=arreglo_respuesta,
@@ -299,7 +321,7 @@ def datos(request,pk):
                         break
 
             return render(request, 'pruebas/ver_prueba.html',
-            {'arreglos_prueba':arreglos_prueba,'pruebs_presona':pruebs_presona },)
+            {'arreglos_prueba':arreglos_prueba,'pruebs_presona':pruebs_presona,'durancion_pruaba':durancion_pruaba},)
 
     else:
         message="no tiene permiso para para esta vista"

@@ -1,57 +1,96 @@
-
 {% extends "base.html"%}
 
 {% block title %} crear prueba {%endblock  %}
+
+{% block script %}
+
+    <script>
+            $(document).ready(function(){
+ 
+                // Evento que se ejecuta al soltar una tecla en el input
+                $("#id_cantidad_pregunta").keydown(function(){
+                    $("input[type=checkbox]").prop('checked', false);
+                    $("#seleccionados").html("0");
+                });
+             
+                // Evento que se ejecuta al pulsar en un checkbox
+                $("input[type=checkbox]").change(function(){
+             
+                    // Cogemos el elemento actual
+                    var elemento=this;
+                    var contador=0;
+             
+                    // Recorremos todos los checkbox para contar los que estan seleccionados
+                    $("input[type=checkbox]").each(function(){
+                        if($(this).is(":checked"))
+                            contador++;
+                    });
+             
+                    var cantidadMaxima=parseInt($("#cantidad").val()) || 0;
+             
+                    // Comprovamos si supera la cantidad máxima indicada
+                    if(contador>cantidadMaxima)
+                    {
+                        alert("Has seleccionado mas checkbox que los indicados");
+             
+                        // Desmarcamos el ultimo elemento
+                        $(elemento).prop('checked', false);
+                        contador--;
+                    }
+             
+                    $("#seleccionados").html(contador);
+                });
+            });
+
+    </script>
+
+{% endblock  %}
 {% block content%}
-<section id="contact-us" class="section-padding" style="margin-top:80px">
-    <div class="container">   
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="page-title text-center">
-                    <h2>Modulo de Pruebas</h2>
-                    <p></p>
+
+    <section id="contact-us" class="section-padding" style="margin-top:80px">
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="page-title text-center">
+                        <h2>Modulo de Pruebas</h2>
+                        <p></p>
+                    </div>
+                </div>
+            </div>                                 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-content">
+                        <h2>crear prueba:</h2>
+                        <form id="contact" name="contact" method="post">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            <label for="">preguntas:</label>
+                                <table>
+                                    {% for pregunta in arreglo_preguntas %}
+                                        <tr style="margin-top:10px; padding:10px;">
+                                            <td class="">
+                                                <input class="" type="checkbox" value="{{pregunta.id_pregunta}}" name="preguntas" id="{{pregunta.id_pregunta}}">{{pregunta.nombre_pregunta}}
+                                            </td> 
+                                            <td class="" >
+                                                <label style="margin-left: 40px;" for="">
+                                                    valor de pregunta
+                                                </label>
+                                                <input type="number" name="arreglo" id="">
+                                            </td>
+                                        </tr>
+                                    {% empty %}
+                                        no tiene preguntas creadas para esta categoria
+                                    {% endfor %}
+                                </table>
+                         
+                            <fieldset>
+                                <input id="submit" type="submit" name="submit" value="guardar" />  
+                            </fieldset>
+                        </form>	
+                    </div>                     
                 </div>
             </div>
-        </div>                                 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-content">
-                    <h2>crear prueba:</h2>
-                    <form id="contact" name="contact" method="post">
-                        {% csrf_token %}
-                        {{form.as_p}}
-                        <label for="">preguntas:</label>
-                            {% for pregunta in arreglo_preguntas %}
-                            <table>
-                                <tr>
-                                    <td>
-                                        <input class="" type="checkbox" value="{{pregunta.id_pregunta}}" name="preguntas" id="{{pregunta.id_pregunta}}">{{pregunta.nombre_pregunta}}
-                                    </td> 
-                                    <td>
-                                        <label style="margin-left: 30px;" for="">
-                                            valor de pregunta
-                                        </label>
-                                        <input type="number" name="arreglo" id="">
-                                    </td>
-                                </tr>
-                            </table>
-
-                            {% empty %}
-                                no tiene preguntas creadas para esta categoria
-                            {% endfor %}
-                        <fieldset>
-                            <input id="submit" type="submit" name="submit" value="guardar" />  
-                        </fieldset>
-                    </form>	
-                </div>                     
-            </div>
         </div>
-    </div>
-</section> <!-- End contact us -->
+    </section> <!-- End contact us -->
 
-{% endblock %}
-{% block script %}
-    <script>
-     
-    </script>
 {% endblock %}
